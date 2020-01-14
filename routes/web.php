@@ -11,15 +11,28 @@
 |
 */
 
+use App\Module;
+use App\ModuleMenu;
+
 Route::get('/', function () {
-    $modules = [
-        'Faturamento', 'Cadastramento geral', 'Estoque', 'SAC', 'Compras', 'PCP'
-    ];
+    $modules = Module::all();
+
     return view('modules', compact('modules'));
 });
 
-Route::get('/server', function() {
-    var_dump($teste);
+Route::group(['prefix' => '/sales'], function () {
+    Route::resource('/', 'SalesController');
 });
 
-Route::resource('/product', 'ProductController');
+Route::group(['prefix' => '/stock'], function () {
+    Route::get('/', function () {
+        $menus = ModuleMenu::whereHas('functions')->get();
+
+        return view('stock.menu', compact('menus'));
+    })->name('stock.index');
+    Route::resource('/product', 'ProductController');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

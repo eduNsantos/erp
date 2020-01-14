@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-2">
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
         <a href="#" class="navbar-brand">
             Sistema melhor q o egis
         </a>
@@ -27,9 +27,7 @@
             </ul>
         </div>
     </nav>
-    <div id="app">
-        @yield('content')
-    </div>
+    @yield('content')
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

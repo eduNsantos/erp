@@ -6,3 +6,24 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+* {
+    box-sizing: border-box;
+}
+
+// body {
+
+// }
+
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+#sidebar {
+    width: 250px;
+    max-width: 80%;
+    height: fit-content;
+    overflow-y: auto;
+    font-size: 12pt;
+}
