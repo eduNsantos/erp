@@ -11366,8 +11366,6 @@ body {
 }
 
 #sidebar {
-  width: 250px;
-  max-width: 80%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;

@@ -7,27 +7,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <a href="#" class="navbar-brand">
-            Sistema melhor q o egis
+        <a href="{{ url('/') }} " class="navbar-brand">
+            {{ config('app.name') }}
         </a>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Faturamento</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Cadastramento geral</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Estoque</a>
+                    <a href="{{ route('login') }}" class="nav-link active">Iniciar sessão</a>
                 </li>
             </ul>
         </div>
     </nav>
     @yield('content')
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 </body>
 </html>

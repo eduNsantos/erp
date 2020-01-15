@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
+    <div class="container my-5">
+        <h2 class="mb-4">Aqui estão todos os módulos disponíveis para você:</h2>
+        <div class="row my-3">
             @foreach($modules as $module)
                 <div class="col-2">
                     <a href="{{ $module->route !="#" ? route($module->route) : $module->route }}">
