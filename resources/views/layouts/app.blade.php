@@ -18,9 +18,24 @@
         </a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link active">Iniciar sessão</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link active">Iniciar sessão</a>
+                    </li>
+                @endguest
+                @auth
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link active dropdown-toggle" data-toggle="dropdown">Olá, {{ Auth::user()->name }}!</a>
+                        <div class="dropdown-menu">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button class="dropdown-item">
+                                    Encerrar sessão
+                                </button>
+                            </form>
+                        </div>
+                    </li>   
+                @endauth
             </ul>
         </div>
     </nav>
