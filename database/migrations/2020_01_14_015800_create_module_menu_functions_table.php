@@ -15,7 +15,7 @@ class CreateModuleMenuFunctionsTable extends Migration
     {
         Schema::create('module_menu_functions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('module_menu_id');
+            $table->unsignedBigInteger('module_menu_id');
             $table->string('name');
             $table->string('icon');
             $table->string('route');
@@ -28,6 +28,9 @@ class CreateModuleMenuFunctionsTable extends Migration
             ['module_menu_id' => 1, 'name' => 'Produto', 'icon' => 'fas fa-wine-bottle', 'route' => 'product.index'],
             ['module_menu_id' => 1, 'name' => 'Consulta de produto', 'icon' => 'fas fa-boxes', 'route' => 'product.index'],
             ['module_menu_id' => 2, 'name' => 'Movimentação de estoque por produto', 'icon' => 'fas fa-search', 'route' => 'product.index'],
+            ['module_menu_id' => 4, 'name' => 'Marca de produto', 'icon' => 'fas fa-edit', 'route' => 'product.index'],
+            ['module_menu_id' => 4, 'name' => 'Grupo de produto', 'icon' => 'fas fa-archive', 'route' => 'product.index'],
+            ['module_menu_id' => 4, 'name' => 'Categoria de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
         ]);
     }
 

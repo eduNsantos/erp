@@ -23,9 +23,10 @@ class CreateModuleMenusTable extends Migration
         });
 
         DB::table('module_menus')->insert([
-            ['module_id' => 2, 'name' => 'Produto'],
-            ['module_id' => 2, 'name' => 'Movimentação'],
-            ['module_id' => 2, 'name' => 'Consultas'],
+            ['id' => 1, 'module_id' => 2, 'name' => 'Produto'],
+            ['id' => 2, 'module_id' => 2, 'name' => 'Movimentação'],
+            ['id' => 3, 'module_id' => 2, 'name' => 'Consultas'],
+            ['id' => 4, 'module_id' => 4, 'name' => 'Produto'],
         ]);
     }
 

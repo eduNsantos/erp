@@ -22,9 +22,10 @@ class CreateModulesTable extends Migration
         });
 
         DB::table('modules')->insert([
-            ['name' => 'Faturamento', 'icon' => 'fas fa-scroll', 'route' => '#'],
-            ['name' => 'Estoque', 'icon' => 'fas fa-boxes', 'route' => 'stock.index'],
-            ['name' => 'Vendas', 'icon' => 'fas fa-receipt', 'route' => '#'],
+            ['id' => 1, 'name' => 'revenues', 'icon' => 'fas fa-scroll', 'route' => '#'],
+            ['id' => 2, 'name' => 'stock', 'icon' => 'fas fa-boxes', 'route' => 'stock.index'],
+            ['id' => 3, 'name' => 'sales', 'icon' => 'fas fa-receipt', 'route' => '#'],
+            ['id' => 4, 'name' => 'general-registration', 'icon' => 'fas fa-receipt', 'route' => 'general_registration.index'],
         ]);
     }
 

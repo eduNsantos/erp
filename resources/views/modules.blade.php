@@ -9,7 +9,7 @@
                     <a href="{{ $module->route !="#" ? route($module->route) : $module->route }}">
                         <div class="text-center">
                             <i class="fas {{ $module->icon }} fa-2x"></i>
-                            <h5>{{ $module->name }}</h5>
+                            <h5>{{ __('messages.'.$module->name) }}</h5>
                         </div>
                     </a>
                 </div>

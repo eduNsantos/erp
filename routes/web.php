@@ -25,12 +25,12 @@ Route::group(['prefix' => '/sales'], function () {
 });
 
 Route::group(['prefix' => '/stock'], function () {
-    Route::get('/', function () {
-        $menus = ModuleMenu::whereHas('functions')->get();
-
-        return view('stock.menu', compact('menus'));
-    })->name('stock.index');
+    Route::get('/', 'RouteController@stock')->name('stock.index');
     Route::resource('/product', 'ProductController');
+});
+
+Route::group(['prefix' => '/general-registration'], function () {
+    Route::get('/', 'RouteController@general_registration')->name('general_registration.index');
 });
 
 Auth::routes();
