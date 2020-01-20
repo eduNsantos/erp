@@ -10,7 +10,11 @@ $(document).on('click', '#sidebar .function-item', function(e) {
 
     e.preventDefault();
 
-    $.get(url, response => $(menuContent).html(response));
+    $.ajax({
+        url: url,
+        beforeSend(() => $(menuContent).html('Carregando...'))
+    })
+    .done(response => $(menuContent).html(response));
 });
 
 $(document).on('submit', '#filter form', function(e) {
