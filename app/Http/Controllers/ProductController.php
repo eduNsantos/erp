@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Brand;
+use App\Product;
+use App\ProductCategory;
+use App\ProductGroup;
+use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
 
@@ -14,9 +19,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $units = Unit::all();
-        
-        return view('product.register', compact('units'));
+        $columns = ['Código', 'Nome', 'Descrição', 'Unidade', 'Marca', 'Grupo do produto'];
+        $products = Product::with([
+            'unit',
+            'brand',
+            'category',
+            'group',
+            'status'
+        ])->get();
+
+        return view('product.list', compact('columns', 'products'));
     }
 
     /**
@@ -26,7 +38,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $units = Unit::all();
+        $brands = Brand::all();
+        $categories = ProductCategory::all();
+        $statuses = ProductStatus::all();
+        $groups = ProductGroup::all();
+        
+        return view('product.register', compact('units', 'brands', 'categories', 'statuses', 'groups'));
     }
 
     /**
@@ -37,7 +55,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = $request->validate([
+            '*' => 'required'
+        ]);
+
+        if (!$validation) {
+            return response($validation->errors());
+        }
+
+        $product = Product::create($request->all());
+
+        return back()->with('message', 'Cadastrado com sucesso!');
     }
 
     /**

@@ -25,7 +25,7 @@ class CreateModuleMenuFunctionsTable extends Migration
         });
 
         DB::table('module_menu_functions')->insert([
-            ['module_menu_id' => 1, 'name' => 'Produto', 'icon' => 'fas fa-wine-bottle', 'route' => 'product.index'],
+            ['module_menu_id' => 1, 'name' => 'Produto', 'icon' => 'fas fa-wine-bottle', 'route' => 'product.create'],
             ['module_menu_id' => 1, 'name' => 'Consulta de produto', 'icon' => 'fas fa-boxes', 'route' => 'product.index'],
             ['module_menu_id' => 2, 'name' => 'Movimentação de estoque por produto', 'icon' => 'fas fa-search', 'route' => 'product.index'],
             ['module_menu_id' => 4, 'name' => 'Marca de produto', 'icon' => 'fas fa-edit', 'route' => 'product.index'],
