@@ -49,4 +49,4 @@ Route::post('/change-date', function (Request $request) {
     return $request;
 });
 
-Route::get('/date', fn() => session('date'));
+Route::get('/date', function () { session('date'); });

@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $columns = ['Código', 'Nome', 'Descrição', 'Unidade', 'Marca', 'Grupo do produto'];
+        $columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
         $products = Product::with([
             'unit',
             'brand',
