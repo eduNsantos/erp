@@ -28,6 +28,7 @@ Route::middleware('check.date')->group(function () {
     Route::group(['prefix' => '/stock'], function () {
         Route::get('/', 'RouteController@stock')->name('stock.index');
         Route::resource('/product', 'ProductController');
+        Route::resource('/product-unit', 'UnitController');
     });
     
     Route::group(['prefix' => '/general-registration'], function () {

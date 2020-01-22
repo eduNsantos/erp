@@ -1,11 +1,25 @@
 <div class="container-fluid mb-3">
-    <div>
+    <div class="d-flex align-items-center">
         <a href="#filter" data-toggle="collapse" class="btn btn-primary">
             <i class="fas fa-calendar"></i>
         </a>
         <div id="current-period" class="btn">
             <span class="initial-date"></span>
             <span class="final-date"></span>
+        </div>
+        <div class="ml-auto text-right">
+            <div class="form-row mx-0">
+                <div class="form-group mr-1">
+                    <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
+                        <i class="fas fa-file-excel fa-lg"></i>
+                    </a>
+                </div>
+                <div class="form-group">
+                    <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Novo produto">
+                        <i class="fas fa-plus fa-lg"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div id="filter" class="collapse mb-3" aria-expanded="false">

@@ -27,6 +27,7 @@ $(document).on('click', '#sidebar .function-item', function(e) {
             finalDate: finalDate
         }
 
+        $('[data-toggle="tooltip"]').tooltip()
         updateDateInfo(formated)
     });
 });
