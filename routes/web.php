@@ -13,12 +13,13 @@
 
 use App\Module;
 use App\ModuleMenu;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     $modules = Module::all();
 
     return view('modules', compact('modules'));
-});
+})->name('modules');
 
 Route::group(['prefix' => '/sales'], function () {
     Route::resource('/', 'SalesController');
@@ -36,3 +37,14 @@ Route::group(['prefix' => '/general-registration'], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::post('/change-date', function (Request $request) {
+    session(['date' => [
+        'initial_date' => strtotime($request->input('initial_date')),
+        'final_date' => strtotime($request->input('final_date')),
+        ]
+    ]);
+
+    return $request;
+});
