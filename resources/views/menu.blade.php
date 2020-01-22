@@ -7,10 +7,10 @@
                 @foreach ($menus as $menu)
                     <li class="nav-item border px-3">
                         <div class="row align-items-center">
-                            <div class="col-2">
+                            <div class="col-lg-2 col-md-6 mx-md-auto d-md-none d-lg-block">
                                 <i class="fas fa-minus"></i>
                             </div>
-                            <div class="col-10">
+                            <div class="col-lg-10 col-md-12">
                                 <a href="#menu-{{ $menu->id }}" class="nav-link" data-toggle="collapse">{{ $menu->name }}</a>
                             </div>
                         </div>
@@ -19,10 +19,10 @@
                         <li class="nav-item collapse bg-info px-3" aria-expanded="false" id="menu-{{ $menu->id }}">
                             <a href="{{ route($function->route) }}" class="nav-link function-item">
                                 <div class="text-white row align-items-center">
-                                    <div class="col-2">
+                                    <div class="col-lg-2 col-md-6">
                                         <i class="{{ $function->icon }}"></i>
                                     </div>
-                                    <div class="col-10">
+                                    <div class="col-lg-10 col-md-12">
                                         <span class="text-break">{{ $function->name }}</span>
                                     </div>
                                 </div>

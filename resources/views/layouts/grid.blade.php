@@ -17,7 +17,7 @@
                 </div>
                 <div class="col">
                     <label for="final_date">Data final</label>
-                    <input type="date" name="final_date" id="final_date" class="form-control" value="{{ date('Y-m-t') }}">
+                    <input type="date" name="final_date" id="final_date" class="form-control" value="{{ date('Y-m-d', session('date')['final_date']) }}">
                 </div>
                 <div class="col-2 row align-items-end mx-0">
                     <div class="btn-group w-100">

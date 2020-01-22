@@ -3,6 +3,8 @@ require('@fortawesome/fontawesome-free/js/all');
 
 const dateFormat = require('dateformat');
 
+import axios from 'axios'
+
 $(document).on('ready', function() { 
     $('body').bootstrapMaterialDesign();
 });
@@ -13,14 +15,10 @@ $(document).on('click', '#sidebar .function-item', function(e) {
     const loader = `<div class="row align-items-center justify-content-center h-100"><div class="lds-dual-ring"></div></div>`
 
     e.preventDefault();
+    (menuContent).html(loader)
 
-    $.ajax({
-        url: url,
-        beforeSend: () => $(menuContent).html(loader)
-    })
-    .done(response => {
-        $(menuContent).html(response)
-    })
+    axios.get(url)
+    .then(response => $(menuContent).html(response.data))
     .then(() => {
         let initialDate = $('#initial_date').val();
         let finalDate = $('#final_date').val();
@@ -32,6 +30,15 @@ $(document).on('click', '#sidebar .function-item', function(e) {
         updateDateInfo(formated)
     });
 });
+
+$(document).on('submit', '.ajax-form', function (e) {
+    const form = $(e.target)
+
+    e.preventDefault()
+
+    axios.post($(form).attr('action'))
+    .then(response => console.log(response))
+})
 
 $(document).on('submit', '#filter form', function(e) {
     let initialDate = $('#initial_date').val();
@@ -58,16 +65,9 @@ $(document).on('submit', '#filter form', function(e) {
         return false;
     }
 
-    $.ajax({
-        url: '/change-date',
-        method: 'post',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-        },
-        data: {
-            initial_date: initialDate,
-            final_date: finalDate
-        }
+    axios.post('/change-date', {
+        initial_date: initialDate,
+        final_date: finalDate
     })
 
     updateDateInfo(formated)

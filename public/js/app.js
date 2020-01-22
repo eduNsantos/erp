@@ -41982,14 +41982,19 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! @fortawesome/fontawesome-free/js/all */ "./node_modules/@fortawesome/fontawesome-free/js/all.js");
 
 var dateFormat = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
 
 $(document).on('ready', function () {
   $('body').bootstrapMaterialDesign();
@@ -41999,13 +42004,9 @@ $(document).on('click', '#sidebar .function-item', function (e) {
   var url = $(this).attr('href');
   var loader = "<div class=\"row align-items-center justify-content-center h-100\"><div class=\"lds-dual-ring\"></div></div>";
   e.preventDefault();
-  $.ajax({
-    url: url,
-    beforeSend: function beforeSend() {
-      return $(menuContent).html(loader);
-    }
-  }).done(function (response) {
-    $(menuContent).html(response);
+  menuContent.html(loader);
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
+    return $(menuContent).html(response.data);
   }).then(function () {
     var initialDate = $('#initial_date').val();
     var finalDate = $('#final_date').val();
@@ -42014,6 +42015,13 @@ $(document).on('click', '#sidebar .function-item', function (e) {
       finalDate: finalDate
     };
     updateDateInfo(formated);
+  });
+});
+$(document).on('submit', '.ajax-form', function (e) {
+  var form = $(e.target);
+  e.preventDefault();
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post($(form).attr('action')).then(function (response) {
+    return console.log(response);
   });
 });
 $(document).on('submit', '#filter form', function (e) {
@@ -42040,16 +42048,9 @@ $(document).on('submit', '#filter form', function (e) {
     return false;
   }
 
-  $.ajax({
-    url: '/change-date',
-    method: 'post',
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')
-    },
-    data: {
-      initial_date: initialDate,
-      final_date: finalDate
-    }
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/change-date', {
+    initial_date: initialDate,
+    final_date: finalDate
   });
   updateDateInfo(formated);
 });
@@ -42131,8 +42132,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\wamp\www\erp\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\wamp\www\erp\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\wamp64\www\erp\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\wamp64\www\erp\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
