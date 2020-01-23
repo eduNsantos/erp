@@ -7,8 +7,12 @@
                 <thead>
                     <tr>
                         <th>Selec.</th>
-                        @foreach ($columns as $column)
-                            <th>{{ $column }}</th>
+                        @foreach ($columns as $relation => $column)}
+                            @if (is_array($columns[$loop->index]))
+                                <th>{{ $index[$relation]->{$column} }}</th>
+                            @else
+                                <th>{{ $column }}</th>
+                            @endif
                         @endforeach
                         <th>Ações</th>
                     </tr>
@@ -29,9 +33,9 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->category->name }}</td>
                             <td>{{ $product->unit->initials }}</td>
-                             <td>{{ $product->brand->name }}</td>
+                            <td>{{ $product->brand->name }}</td>
                             <td>{{ $product->group->name }}</td>
-                            {{-- <td>{{ $product->status->name }}</td> --}}
+                            <td>{{ $product->status->name }}</td>
                             <td>
                                 <button class="btn btn-primary">
                                     <i class="fas fa-edit"></i>

@@ -3,15 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Interfaces\Excel;
 use App\Product;
 use App\ProductCategory;
 use App\ProductGroup;
 use App\ProductStatus;
+use App\Traits\ExportToExcel;
 use App\Unit;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductController extends Controller implements Excel
 {
+    use ExportToExcel;
+
+    public function __construct()
+    {
+        $this->columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
+        $this->items = Product::with([
+            'unit',
+            'brand',
+            'category',
+            'group',
+            'status'
+        ])->get();
+
+        $this->setItems()
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,14 +36,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
-        $products = Product::with([
-            'unit',
-            'brand',
-            'category',
-            'group',
-            'status'
-        ])->get();
+        $columns = $this->columns;
+        $products = $this->items;
 
         return view('product.list', compact('columns', 'products'));
     }
@@ -111,5 +122,10 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function test()
+    {
+        dd($this->exportToExcel());
     }
 }
