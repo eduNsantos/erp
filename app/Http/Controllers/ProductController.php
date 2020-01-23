@@ -11,15 +11,14 @@ use App\ProductStatus;
 use App\Traits\ExportToExcel;
 use App\Unit;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ProductController extends Controller implements Excel
 {
-    use ExportToExcel;
-
     public function __construct()
     {
-        $this->columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
-        $this->items = Product::with([
+        $products = Product::with([
             'unit',
             'brand',
             'category',
@@ -27,7 +26,8 @@ class ProductController extends Controller implements Excel
             'status'
         ])->get();
 
-        $this->setItems()
+        $this->columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
+        $this->items = $products;
     }
     /**
      * Display a listing of the resource.
@@ -126,6 +126,28 @@ class ProductController extends Controller implements Excel
 
     public function test()
     {
-        dd($this->exportToExcel());
+        $this->exportToExcel();
+    }
+
+    
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function setItems($items)
+    {
+        // $this-
+    }
+
+    public function exportToExcel()
+    {
+        dd($this->items);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Código');
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save(base_path('\\public\\test.xlsx'));
     }
 }
