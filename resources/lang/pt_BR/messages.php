@@ -2,7 +2,16 @@
 
 return [
     'revenues' => 'Faturamento',
-    'stock' => 'Estoque',
+    'stock' => [
+        'module_name' => 'Estoque',
+        'code' => 'Código',
+        'name' => 'Nome',
+        'description' => 'Descrição',
+        'category' => 'Categoria',
+        'unit' => 'Unidade',
+        'brand' => 'Marca',
+        'group' => 'Grupo'
+    ],
     'sales' => 'Vendas',
     'general-registration' => 'Cadastramento geral'
 ];

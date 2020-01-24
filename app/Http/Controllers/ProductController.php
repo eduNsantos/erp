@@ -3,32 +3,102 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
-use App\Interfaces\Excel;
 use App\Product;
 use App\ProductCategory;
 use App\ProductGroup;
 use App\ProductStatus;
-use App\Traits\ExportToExcel;
 use App\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class ProductController extends Controller implements Excel
+class ProductController extends Controller
 {
     public function __construct()
     {
         $products = Product::with([
-            'unit',
+            'unit:id,name',
             'brand',
             'category',
             'group',
             'status'
         ])->get();
 
-        $this->columns = ['Código', 'Nome', 'Descrição', 'Categoria', 'Unidade', 'Marca', 'Grupo do produto'];
+        $this->columns = [
+            'code' => true,
+            'name' => true,
+            'description' => true,
+            'category' => 'name',
+            'unit' => 'name',
+            'brand' => 'name',
+            'group' => 'name'
+        ];
         $this->items = $products;
     }
+
+    /**
+     * Export data to xlsx file
+     * 
+     */
+    public function exportToExcel(array $columns, array $items, string $filePath)
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        $columnCounter = 1;
+        foreach ($columns as $column => $relationField) {
+            $sheet->setCellValueByColumnAndRow($columnCounter, 1, Lang::trans("messages.stock.$column"))
+                ->getStyleByColumnAndRow($columnCounter, 1)
+                ->getFont()
+                ->setBold(true)
+                ->setSize(12)
+            ;
+            $columnCounter++;
+        }
+
+        $rowCounter = 2;
+        foreach ($items as $item) {
+            $column = 1;
+            foreach ($item as $field) {
+                if (is_array($field)) {
+                    $sheet->setCellValueByColumnAndRow($column, $rowCounter, $field['name'])
+                        ->getColumnDimensionByColumn($column)
+                        ->setAutoSize(true)
+                    ;
+                } else {
+                    $sheet->setCellValueByColumnAndRow($column, $rowCounter, $field)
+                        ->getColumnDimensionByColumn($column)
+                        ->setAutoSize(true)
+                    ;
+                }
+                $column++;
+            }
+            $rowCounter++;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($filePath);
+    }
+
+    public function test()
+    {
+        $items = array_map(function ($item) {
+            $newItem = [];
+            foreach ($this->columns as $column => $relationField) {
+                if ($relationField) {
+                    $newItem[] = $item[$column];
+                } else {
+                    $newItem[] = $item[$column][$relationField];
+                }
+            }
+
+            return $newItem;
+        }, $this->items->toArray());
+
+        $this->exportToExcel($this->columns, $items, base_path('public\\test.xlsx'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -122,32 +192,5 @@ class ProductController extends Controller implements Excel
     public function destroy($id)
     {
         //
-    }
-
-    public function test()
-    {
-        $this->exportToExcel();
-    }
-
-    
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    public function setItems($items)
-    {
-        // $this-
-    }
-
-    public function exportToExcel()
-    {
-        dd($this->items);
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Código');
-
-        $writer = new Xlsx($spreadsheet);
-        $writer->save(base_path('\\public\\test.xlsx'));
     }
 }

@@ -8,9 +8,11 @@
             <span class="final-date"></span>
         </div>
         <div class="ml-auto text-right">
-            <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
-                <i class="fas fa-file-excel fa-lg"></i>
-            </a>
+            <form action="{{ route('export.to.excel') }}" class="ajax-form" method="GET">
+                <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
+                    <i class="fas fa-file-excel fa-lg"></i>
+                </button>
+            </form>
             <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Novo produto">
                 <i class="fas fa-plus fa-lg"></i>
             </a>

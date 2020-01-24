@@ -52,4 +52,4 @@ Route::post('/change-date', function (Request $request) {
 
 Route::get('/date', function () { session('date'); });
 
-Route::get('/test', 'ProductController@test');
+Route::get('/export', 'ProductController@test')->name('export.to.excel');

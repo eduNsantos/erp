@@ -34,10 +34,11 @@ $(document).on('click', '#sidebar .function-item', function(e) {
 
 $(document).on('submit', '.ajax-form', function (e) {
     const form = $(e.target)
+    const method = $(e.target).attr('method')
 
     e.preventDefault()
 
-    axios.post($(form).attr('action'))
+    axios.get($(form).attr('action'))
     .then(response => console.log(response))
 })
 

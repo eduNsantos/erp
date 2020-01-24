@@ -7,12 +7,8 @@
                 <thead>
                     <tr>
                         <th>Selec.</th>
-                        @foreach ($columns as $relation => $column)}
-                            @if (is_array($columns[$loop->index]))
-                                <th>{{ $index[$relation]->{$column} }}</th>
-                            @else
-                                <th>{{ $column }}</th>
-                            @endif
+                        @foreach ($columns as $column => $relationField)}
+                            <th>{{ trans("messages.stock.$column") }}</th>                                    
                         @endforeach
                         <th>Ações</th>
                     </tr>
