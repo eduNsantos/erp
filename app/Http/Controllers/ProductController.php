@@ -9,11 +9,8 @@ use App\ProductGroup;
 use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class ProductController extends Controller
+class ProductController extends GridController
 {
     public function __construct()
     {
@@ -32,71 +29,10 @@ class ProductController extends Controller
             'category' => 'name',
             'unit' => 'name',
             'brand' => 'name',
-            'group' => 'name'
+            'group' => 'name',
+            'status' => 'name'
         ];
         $this->items = $products;
-    }
-
-    /**
-     * Export data to xlsx file
-     * 
-     */
-    public function exportToExcel(array $columns, array $items, string $filePath)
-    {
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
-        
-        $columnCounter = 1;
-        foreach ($columns as $column => $relationField) {
-            $sheet->setCellValueByColumnAndRow($columnCounter, 1, Lang::trans("messages.stock.$column"))
-                ->getStyleByColumnAndRow($columnCounter, 1)
-                ->getFont()
-                ->setBold(true)
-                ->setSize(12)
-            ;
-            $columnCounter++;
-        }
-
-        $rowCounter = 2;
-        foreach ($items as $item) {
-            $column = 1;
-            foreach ($item as $field) {
-                if (is_array($field)) {
-                    $sheet->setCellValueByColumnAndRow($column, $rowCounter, $field['name'])
-                        ->getColumnDimensionByColumn($column)
-                        ->setAutoSize(true)
-                    ;
-                } else {
-                    $sheet->setCellValueByColumnAndRow($column, $rowCounter, $field)
-                        ->getColumnDimensionByColumn($column)
-                        ->setAutoSize(true)
-                    ;
-                }
-                $column++;
-            }
-            $rowCounter++;
-        }
-
-        $writer = new Xlsx($spreadsheet);
-        $writer->save($filePath);
-    }
-
-    public function test()
-    {
-        $items = array_map(function ($item) {
-            $newItem = [];
-            foreach ($this->columns as $column => $relationField) {
-                if ($relationField) {
-                    $newItem[] = $item[$column];
-                } else {
-                    $newItem[] = $item[$column][$relationField];
-                }
-            }
-
-            return $newItem;
-        }, $this->items->toArray());
-
-        $this->exportToExcel($this->columns, $items, base_path('public\\test.xlsx'));
     }
 
     /**

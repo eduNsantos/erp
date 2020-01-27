@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>Selec.</th>
-                        @foreach ($columns as $column => $relationField)}
+                        @foreach ($columns as $column => $relationField)
                             <th>{{ trans("messages.stock.$column") }}</th>                                    
                         @endforeach
                         <th>Ações</th>
@@ -28,7 +28,7 @@
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->unit->initials }}</td>
+                            <td>{{ $product->unit->name }}</td>
                             <td>{{ $product->brand->name }}</td>
                             <td>{{ $product->group->name }}</td>
                             <td>{{ $product->status->name }}</td>

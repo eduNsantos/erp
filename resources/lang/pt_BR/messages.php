@@ -10,7 +10,8 @@ return [
         'category' => 'Categoria',
         'unit' => 'Unidade',
         'brand' => 'Marca',
-        'group' => 'Grupo'
+        'group' => 'Grupo',
+        'status' => 'Status'
     ],
     'sales' => 'Vendas',
     'general-registration' => 'Cadastramento geral'
