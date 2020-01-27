@@ -43,9 +43,9 @@ class ProductController extends GridController
     public function index()
     {
         $columns = $this->columns;
-        $products = $this->items;
+        $items = $this->items;
 
-        return view('product.list', compact('columns', 'products'));
+        return view('product.list', compact('columns', 'items'));
     }
 
     /**

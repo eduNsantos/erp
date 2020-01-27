@@ -1,4 +1,5 @@
 @extends('layouts.grid')
+
 @section('content')
 <div class="container-fluid">
     @if (session()->has('message'))

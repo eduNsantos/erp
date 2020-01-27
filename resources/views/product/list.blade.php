@@ -1,5 +1,7 @@
 @extends('layouts.grid')
 
+{{-- @section('export_route', route($exportRoute)) --}}
+
 @section('content')
     <div class="container-fluid">
         <div class="table-responsive">
@@ -14,24 +16,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($products as $product)
+                    @foreach ($items as $item)
                         <tr>
                             <td>
                                 <div>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="{{ $loop->index }}">
                                         <label class="custom-control-label" for="{{ $loop->index }}"></label>
-                                      </div>
+                                    </div>
                                 </div>
                             </td>
-                            <td>{{ $product->code }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->description }}</td>
-                            <td>{{ $product->category->name }}</td>
-                            <td>{{ $product->unit->name }}</td>
-                            <td>{{ $product->brand->name }}</td>
-                            <td>{{ $product->group->name }}</td>
-                            <td>{{ $product->status->name }}</td>
+                            @foreach ($columns as $column  => $relationField)
+                                @php 
+                                    $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
+                                @endphp
+                                <td>{{ $cell }}</td>
+                            @endforeach
                             <td>
                                 <button class="btn btn-primary">
                                     <i class="fas fa-edit"></i>

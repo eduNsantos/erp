@@ -5,8 +5,17 @@ namespace App\Http\Controllers;
 use App\Unit;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class UnitController extends GridController
 {
+    public function __construct()
+    {
+        $this->columns = [
+            'id' => true,
+            'name' => true,
+            'initials' => true
+        ];
+        $this->items = Unit::all();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +23,10 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return view('product-unit.register');
+        $columns = $this->columns;
+        $items = $this->items;
+
+        return view('product.list', compact('columns', 'items'));
     }
 
     /**
@@ -24,7 +36,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('product-unit.register');
     }
 
     /**

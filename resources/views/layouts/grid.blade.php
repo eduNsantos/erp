@@ -8,7 +8,7 @@
             <span class="final-date"></span>
         </div>
         <div class="ml-auto text-right">
-            <a href="{{ route('export_file') }}" download class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
+            <a href="{{ request()->route()->getController()->exportToExcel()  }}" download class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
                 <i class="fas fa-file-excel fa-lg"></i>
             </a>
             <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Novo produto">

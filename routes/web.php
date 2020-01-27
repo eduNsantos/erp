@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Origin: *");
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,3 +53,21 @@ Route::post('/change-date', function (Request $request) {
 Route::get('/date', function () { session('date'); });
 
 Route::get('/export', 'ProductController@exportToExcel')->name('export_file');
+
+Route::get('/soap', function () {
+    $url = "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx";
+
+    $postFields = [
+        'nfeDadosMsg' => '35200167313130000406550020000051801000052365'
+    ];
+
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $postFields);
+    $retorno = curl_exec($curl);
+    curl_close($curl);
+
+    dd($retorno);
+});

@@ -32,7 +32,7 @@
                 @endforeach
             </ul>
         </div>
-        <div id="menu-content" class="col-10 px-0 pt-2 h-100">
+        <div id="menu-content" class="col-10 px-0 pt-2 h-100" style="overflow-y: auto">
 
         </div>
     </div>

@@ -13,7 +13,7 @@ class GridController extends Controller
      * Export data to xlsx file
      * 
      */
-    public function exportToExcel($fileName)
+    public function exportToExcel()
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet = $this->getExcelHeaders($spreadsheet, $this->columns);

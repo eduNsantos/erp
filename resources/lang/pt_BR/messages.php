@@ -11,7 +11,9 @@ return [
         'unit' => 'Unidade',
         'brand' => 'Marca',
         'group' => 'Grupo',
-        'status' => 'Status'
+        'status' => 'Status',
+        'initials' => 'Sigla',
+        'id' => 'Código'
     ],
     'sales' => 'Vendas',
     'general-registration' => 'Cadastramento geral'
