@@ -30,6 +30,6 @@ class ResourceRegistrar extends OriginalRegistrar
 
         $action = $this->getResourceAction($name, $controller, 'exportToExcel', $options);
 
-        return $this->router->post($uri, $action);
+        return $this->router->get($uri, $action);
     }
 }
