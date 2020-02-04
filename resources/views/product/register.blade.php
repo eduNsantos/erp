@@ -1,6 +1,3 @@
-@extends('layouts.grid')
-
-@section('content')
 <div class="container-fluid">
     @if (session()->has('message'))
         <div class="alert alert-success">
@@ -8,7 +5,7 @@
         </div>
     @endif
     <h4>Cadastramento de produto</h4>
-    <form action="{{ route('product.store') }}" method="POST">
+    <form action="{{ route('product.store') }}" class="ajax-form" method="POST">
         @csrf
         <div class="form-row">
             <div class="col-2 form-group">
@@ -71,4 +68,3 @@
         @include('components.form-buttons')
     </form>
 </div>
-@endsection

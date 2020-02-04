@@ -12,10 +12,18 @@ class UnitController extends GridController
         $this->columns = [
             'id' => true,
             'name' => true,
-            'initials' => true
+            'initials' => true,
+            'created_at' => true,
+            'updated_at' => true,
         ];
         $this->items = Unit::all();
     }
+
+    public function exportToExcel()
+    {
+        return parent::_exportToExcel('Unidades de medida');
+    }
+
     /**
      * Display a listing of the resource.
      *

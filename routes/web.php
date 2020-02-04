@@ -28,6 +28,7 @@ Route::group(['prefix' => '/stock'], function () {
     Route::get('/', 'RouteController@stock')->name('stock.index');
     Route::get('/product/exportToExcel', 'ProductController@exportToExcel');
     Route::resource('/product', 'ProductController');
+    Route::get('/product-unit/exportToExcel', 'UnitController@exportToExcel');
     Route::resource('/product-unit', 'UnitController');
 });
 

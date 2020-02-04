@@ -8,10 +8,23 @@
             <span class="final-date"></span>
         </div>
         <div class="ml-auto text-right">
-            <a href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.exportToExcel') }}" download class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Exportar para excel">
+            <a 
+                href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.exportToExcel') }}"
+                download
+                class="btn btn-success export-excel"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Exportar para excel"
+            >
                 <i class="fas fa-file-excel fa-lg"></i>
             </a>
-            <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Novo produto">
+            <a 
+                href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.create') }}"
+                class="btn btn-primary create-item"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Novo produto"
+            >
                 <i class="fas fa-plus fa-lg"></i>
             </a>
         </div>
@@ -39,4 +52,6 @@
 </div>
 <div>
     @yield('content')
+    @component('components.register-modal')
+    @endcomponent
 </div>

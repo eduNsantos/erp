@@ -4,6 +4,7 @@ require('@fortawesome/fontawesome-free/js/all');
 const dateFormat = require('dateformat');
 
 import axios from 'axios'
+import swal from 'sweetalert2'
 
 $(document).on('ready', function() { 
     $('body').bootstrapMaterialDesign();
@@ -33,13 +34,56 @@ $(document).on('click', '#sidebar .function-item', function(e) {
 });
 
 $(document).on('submit', '.ajax-form', function (e) {
-    const form = $(e.target)
-    const method = $(e.target).attr('method')
+    const form = this
 
     e.preventDefault()
 
-    axios.get($(form).attr('action'))
-    .then(response => console.log(response))
+    axios.post($(form).attr('action'), new FormData(form))
+    .then(response => {
+        swal.fire('Aviso', response.data.message, response.data.type)
+    })
+    .catch(error => {
+        const errors = Object.values(error.response.data.errors)
+        const list = document.createElement('ul')
+
+        for (let error of errors) {
+            let item = document.createElement('li')
+            item.textContent = error
+            
+            list.appendChild(item)
+        }
+
+
+        swal.fire('Aviso', list, 'error')
+    })
+})
+
+$(document).on('click', '.export-excel', function (e) {
+    swal.fire('Arquivo baixado!', 'Verifique seus downloads.', 'success')
+})
+
+$(document).on('click', '.create-item', function (e) {
+    const item = this
+    const registerModal = $('#registerModal')
+    
+    e.preventDefault()
+
+    swal.fire({
+        title: 'Carregando...',
+        text: 'Por favor, aguarde',
+        showConfirmButton: false
+    })
+
+    axios.get($(item).attr('href'))
+    .then(response => {
+        swal.close()
+        registerModal.find('.modal-body').html(response.data)
+        registerModal.modal();
+    })
+})
+
+$(document).on('click', 'form .btn-danger', function (e) {
+    $('#registerModal').modal('hide')
 })
 
 $(document).on('submit', '#filter form', function(e) {

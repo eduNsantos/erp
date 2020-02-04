@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductCategory;
 use App\ProductGroup;
@@ -33,6 +34,14 @@ class ProductController extends GridController
             'status' => 'name'
         ];
         $this->items = $products;
+    }
+
+    /**
+     * Method to export data to excel
+     */
+    public function exportToExcel()
+    {
+        return parent::_exportToExcel('Listagem de produtos');
     }
 
     /**
@@ -70,19 +79,14 @@ class ProductController extends GridController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validation = $request->validate([
-            '*' => 'required'
-        ]);
-
-        if (!$validation) {
-            return response($validation->errors());
-        }
-
         $product = Product::create($request->all());
 
-        return back()->with('message', 'Cadastrado com sucesso!');
+        return response()->json([
+            'message' => 'Produto cadastrado com sucesso!',
+            'type' => 'success'
+        ]);
     }
 
     /**

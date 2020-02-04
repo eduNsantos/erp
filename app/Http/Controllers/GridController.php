@@ -13,7 +13,7 @@ class GridController extends Controller
      * Export data to xlsx file
      * 
      */
-    public function exportToExcel()
+    public function _exportToExcel($name)
     {
         $spreadsheet = new Spreadsheet();
         $spreadsheet = $this->getExcelHeaders($spreadsheet, $this->columns);
@@ -21,7 +21,7 @@ class GridController extends Controller
 
         $sessionDate = new SessionDate();
         $fileName = $sessionDate->getInitialDateSeparetedBy('-') . ' à ' . $sessionDate->getFinalDateSeparetedBy('-');
-        $fileName .= ' test';
+        $fileName .= " $name";
 
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="'. $fileName .'.xlsx"');
