@@ -59,7 +59,11 @@ $(document).on('submit', '.ajax-form', function (e) {
 })
 
 $(document).on('click', '.export-excel', function (e) {
-    swal.fire('Arquivo baixado!', 'Verifique seus downloads.', 'success')
+    e.preventDefault();
+    (async () => {
+        await window.open($(this).attr('href'), '_top')
+        await swal.fire('Arquivo baixado!', 'Verifique seus downloads.', 'success')
+    })();
 })
 
 $(document).on('click', '.create-item', function (e) {
