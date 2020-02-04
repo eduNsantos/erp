@@ -14,29 +14,28 @@ header("Access-Control-Allow-Origin: *");
 use App\Module;
 use Illuminate\Http\Request;
 
-Route::middleware('check.date')->group(function () {
-    Route::get('/', function () {
-        $modules = Module::all();
-    
-        return view('modules', compact('modules'));
-    })->name('modules');
-    
-    Route::group(['prefix' => '/sales'], function () {
-        Route::resource('/', 'SalesController');
-    });
-    
-    Route::group(['prefix' => '/stock'], function () {
-        Route::get('/', 'RouteController@stock')->name('stock.index');
-        Route::resource('/product', 'ProductController');
-        Route::resource('/product-unit', 'UnitController');
-    });
-    
-    Route::group(['prefix' => '/general-registration'], function () {
-        Route::get('/', 'RouteController@general_registration')->name('general_registration.index');
-    });
-    
-    Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    $modules = Module::all();
+
+    return view('modules', compact('modules'));
+})->name('modules');
+
+Route::group(['prefix' => '/sales'], function () {
+    Route::resource('/', 'SalesController');
 });
+
+Route::group(['prefix' => '/stock'], function () {
+    Route::get('/', 'RouteController@stock')->name('stock.index');
+    Route::get('/product/exportToExcel', 'ProductController@exportToExcel');
+    Route::resource('/product', 'ProductController');
+    Route::resource('/product-unit', 'UnitController');
+});
+
+Route::group(['prefix' => '/general-registration'], function () {
+    Route::get('/', 'RouteController@general_registration')->name('general_registration.index');
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
