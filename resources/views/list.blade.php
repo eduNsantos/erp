@@ -10,7 +10,7 @@
                     <tr>
                         <th>Selec.</th>
                         @foreach ($columns as $column => $relationField)
-                            <th>{{ trans("messages.stock.$column") }}</th>                                    
+                            <th class="{{ $column }}">{{ trans("messages.stock.$column") }}</th>                      
                         @endforeach
                         <th>Ações</th>
                     </tr>
@@ -30,7 +30,7 @@
                                 @php 
                                     $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
                                 @endphp
-                                <td>{{ $cell }}</td>
+                                <td class="{{ $column }}">{{ $cell }}</td>
                             @endforeach
                             <td>
                                 <button class="btn btn-primary">

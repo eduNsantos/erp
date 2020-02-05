@@ -86,19 +86,29 @@ $(document).on('click', '.create-item', function (e) {
     })
 })
 
+$(document).on('click', '.toggle-columns', function (e) {
+    $('#columns').toggle()
+})
+
+$(document).on('change', '#columns input[type=checkbox]', function (e) {
+    const column = $(this).prop('id')
+
+    $(`.${column}`).toggle();
+})
+
 $(document).on('click', 'form .btn-danger', function (e) {
     $('#registerModal').modal('hide')
 })
 
 $(document).on('submit', '#filter form', function(e) {
+    e.preventDefault();
+    
     let initialDate = $('#initial_date').val();
     let finalDate = $('#final_date').val();
     const formated = {
         initialDate: initialDate,
         finalDate: finalDate
     }
-
-    e.preventDefault();
 
     if (initialDate == "") {
         alert('A data inicial deve ser definida');

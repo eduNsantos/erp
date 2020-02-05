@@ -9,6 +9,29 @@
         </div>
         <div class="ml-auto text-right">
             <a 
+                href="#"
+                class="btn btn-primary toggle-columns"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Colunas"
+            >
+                <i class="fas fa-eye"></i>
+            </a>
+            <div id="columns" class="bg-white">
+                <div class="row">
+                    @foreach ($columns as $column => $relationField)
+                        <div class="col-2">
+                            <input type="checkbox" name="{{ $column }}" id="{{ $column }}" checked="checked">
+                        </div>
+                        <div class="col-9 text-left">
+                            <label for="{{ $column }}">
+                                {{ $column }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <a 
                 href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.exportToExcel') }}"
                 download
                 class="btn btn-success export-excel"
@@ -16,7 +39,7 @@
                 data-placement="bottom"
                 title="Exportar para excel"
             >
-                <i class="fas fa-file-excel fa-lg"></i>
+                <i class="fas fa-file-excel"></i>
             </a>
             <a 
                 href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.create') }}"
@@ -25,7 +48,7 @@
                 data-placement="bottom"
                 title="Novo produto"
             >
-                <i class="fas fa-plus fa-lg"></i>
+                <i class="fas fa-plus"></i>
             </a>
         </div>
     </div>

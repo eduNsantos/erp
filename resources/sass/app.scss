@@ -26,6 +26,14 @@ body {
     font-size: 12pt;
 }
 
+#columns {
+    position: absolute;
+    padding: 5px 10px;
+    box-shadow: 0 0 3px #cecece;
+    width: 150px;
+    display: none;
+}
+
 .lds-dual-ring {
     display: inline-block;
     width: 80px;

@@ -34,7 +34,7 @@ class UnitController extends GridController
         $columns = $this->columns;
         $items = $this->items;
 
-        return view('product.list', compact('columns', 'items'));
+        return view('list', compact('columns', 'items'));
     }
 
     /**
