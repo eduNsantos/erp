@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends GridController
 {
+    const TRANSLATION_PREFIX = "stock";
     public function __construct()
     {
         $products = Product::with([
@@ -28,7 +29,7 @@ class ProductController extends GridController
             'name' => true,
             'description' => true,
             'category' => 'name',
-            'unit' => 'name',
+            'unit' => 'initials',
             'brand' => 'name',
             'group' => 'name',
             'status' => 'name'
