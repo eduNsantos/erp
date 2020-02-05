@@ -6,10 +6,9 @@ const dateFormat = require('dateformat');
 import axios from 'axios'
 import swal from 'sweetalert2'
 
-$(document).on('ready', function() { 
-    $('body').bootstrapMaterialDesign();
-});
-
+/**
+ * Executa a função do menu e coloca no container
+ */
 $(document).on('click', '#sidebar .function-item', function(e) {
     const menuContent = $('#menu-content')
     const url = $(this).attr('href');
@@ -33,6 +32,9 @@ $(document).on('click', '#sidebar .function-item', function(e) {
     });
 });
 
+/**
+ * Abstração para envio de formulário via post ajax
+ */
 $(document).on('submit', '.ajax-form', function (e) {
     const form = this
 
@@ -58,6 +60,9 @@ $(document).on('submit', '.ajax-form', function (e) {
     })
 })
 
+/**
+ * Exporta para o excel
+ */
 $(document).on('click', '.export-excel', function (e) {
     e.preventDefault();
     (async () => {
@@ -66,6 +71,9 @@ $(document).on('click', '.export-excel', function (e) {
     })();
 })
 
+/**
+ * Faz a requisição do formulário de cadastro no back-end
+ */
 $(document).on('click', '.create-item', function (e) {
     const item = this
     const registerModal = $('#registerModal')
@@ -86,23 +94,35 @@ $(document).on('click', '.create-item', function (e) {
     })
 })
 
+/**
+ * Toggle checkboxes para alterar visibilidade das colunas
+ */
 $(document).on('click', '.toggle-columns', function (e) {
     $('#columns').toggle()
 })
 
+/**
+ * Altera visibilidade das colunas na listagem
+ */
 $(document).on('change', '#columns input[type=checkbox]', function (e) {
     const column = $(this).prop('id')
 
     $(`.${column}`).toggle();
 })
 
+/**
+ * Fecha modal de cadastro ao clicar em cancelar
+ */
 $(document).on('click', 'form .btn-danger', function (e) {
     $('#registerModal').modal('hide')
 })
 
+/**
+ * Altera data na session para consultas
+ */
 $(document).on('submit', '#filter form', function(e) {
     e.preventDefault();
-    
+
     let initialDate = $('#initial_date').val();
     let finalDate = $('#final_date').val();
     const formated = {

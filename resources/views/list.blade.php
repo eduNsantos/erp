@@ -5,12 +5,22 @@
 @section('content')
     <div class="container-fluid">
         <div class="table-responsive">
-            <table class="table table-hover table-striped">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Selec.</th>
+                        @isset($multiSelect)
+                            <th>Selec.</th>
+                        @endisset
                         @foreach ($columns as $column => $relationField)
-                            <th class="{{ $column }}">{{ trans("messages.stock.$column") }}</th>                      
+                            <th 
+                                class="{{ $column }}"
+                                draggable="true"
+                                ondrag="event.preventDefault()"
+                                ondragover="dragOver(event)"
+                                ondragend="removePlacingArrow(event)"
+                            >
+                                {{ trans("messages.stock.$column") }}
+                            </th>                      
                         @endforeach
                         <th>Ações</th>
                     </tr>
@@ -18,14 +28,16 @@
                 <tbody>
                     @foreach ($items as $item)
                         <tr>
-                            <td>
-                                <div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="{{ $loop->index }}">
-                                        <label class="custom-control-label" for="{{ $loop->index }}"></label>
+                            @isset($multiSelect)
+                                <td>
+                                    <div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="{{ $loop->index }}">
+                                            <label class="custom-control-label" for="{{ $loop->index }}"></label>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                            @endisset
                             @foreach ($columns as $column  => $relationField)
                                 @php 
                                     $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
@@ -43,4 +55,29 @@
             </table>
         </div>
     </div>
+    <script>
+        function dragOver(e) {
+            const element = $(e.target)
+            const pos = {
+                top: element[0].offsetHeight,
+                left: element[0].offsetLeft
+            }
+
+            $('.placing-arrow').remove()
+            const arrow = $(`
+                <span class="placing-arrow position-absolute" style="left:${pos.left + 10}px;top:${pos.top-10}px">
+                    <i class="fas fa-arrow-down"></i>
+                </span>
+            `)
+
+            $(element).append(arrow)
+        }
+
+        function removePlacingArrow(e) {
+            e.preventDefault()
+            console.log($(e.target))
+            $('.placing-arrow').remove()
+        }
+
+    </script>
 @endsection
