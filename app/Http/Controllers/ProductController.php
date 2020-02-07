@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductCategory;
 use App\ProductGroup;
+use App\ProductQuantity;
 use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
@@ -29,10 +30,11 @@ class ProductController extends GridController
             'name' => true,
             'description' => true,
             'category' => 'name',
-            'unit' => 'initials',
+            'unit' => 'name',
             'brand' => 'name',
             'group' => 'name',
-            'status' => 'name'
+            'status' => 'name',
+            'quantity' => 1,
         ];
         $this->items = $products;
     }
@@ -83,6 +85,7 @@ class ProductController extends GridController
     public function store(ProductRequest $request)
     {
         $product = Product::create($request->all());
+        ProductQuantity::createDefaultProductQuantities($product->id);
 
         return response()->json([
             'message' => 'Produto cadastrado com sucesso!',

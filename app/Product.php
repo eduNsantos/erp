@@ -10,6 +10,7 @@ class Product extends Model
         'code',
         'name',
         'description',
+        'multiple',
         'unit_id',
         'brand_id',
         'product_category_id',
@@ -38,6 +39,11 @@ class Product extends Model
     }
     
     public function status()
+    {
+        return $this->belongsTo(ProductStatus::class, 'product_status_id');
+    }
+
+    public function quantity()
     {
         return $this->belongsTo(ProductStatus::class, 'product_status_id');
     }

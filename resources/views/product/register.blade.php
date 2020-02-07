@@ -5,6 +5,8 @@
         </div>
     @endif
     <h4>Cadastramento de produto</h4>
+    <hr>
+    <h5><b>Geral</b></h5>
     <form action="{{ route('product.store') }}" class="ajax-form" method="POST">
         @csrf
         <div class="form-row">
@@ -12,18 +14,13 @@
                 <label for="code">Código</label>
                 <input class="form-control" type="text" name="code" id="code">
             </div>
-            <div class="col-6 form-group">
+            <div class="col-4 form-group">
                 <label for="name">Nome</label>
                 <input class="form-control" type="text" name="name">
             </div>
-            <div class="col-2 form-group">
-                <label for="unit_id">Unidade</label>
-                <select class="form-control" name="unit_id" id="unit">
-                    <option value="">Selecione</option>
-                    @foreach ($units as $unit)
-                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
-                    @endforeach
-                </select>
+            <div class="col-6 form-group">
+                <label for="description">Descrição</label>
+                <input class="form-control" type="text" name="description">
             </div>
             <div class="col-2 form-group">
                 <label for="brand_id">Marca</label>
@@ -33,10 +30,6 @@
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                     @endforeach
                 </select>
-            </div>
-            <div class="col form-group">
-                <label for="description">Descrição</label>
-                <input class="form-control" type="text" name="description">
             </div>
             <div class="col form-group">
                 <label for="product_category_id">Categoria</label>
@@ -63,6 +56,31 @@
                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                     @endforeach>
                 </select>
+            </div>
+        </div>
+        <div>
+            <hr>
+            <h5><b>Logística</b></h5>
+            <div class="row">
+                <div class="col-3 form-group">
+                    <label for="unit_id">Unidade</label>
+                    <select class="form-control" name="unit_id" id="unit">
+                        <option value="">Selecione</option>
+                        @foreach ($units as $unit)
+                            <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-4 form-group">
+                    <label 
+                        for="multiple"
+                        data-toggle="tooltip"
+                        title="Quantidade de produtos na unidade"
+                    >
+                        Múltiplo de embalagem
+                    </label>
+                    <input class="form-control" type="number" name="multiple" value="1">
+                </div>
             </div>
         </div>
         @include('components.form-buttons')
