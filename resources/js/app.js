@@ -55,7 +55,6 @@ $(document).on('submit', '.ajax-form', function (e) {
             list.appendChild(item)
         }
 
-
         swal.fire('Aviso', list, 'error')
     })
 })

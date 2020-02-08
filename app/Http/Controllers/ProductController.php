@@ -24,17 +24,18 @@ class ProductController extends GridController
             'group',
             'status'
         ])->get();
-
+        
         $this->columns = [
             'code' => true,
             'name' => true,
             'description' => true,
             'category' => 'name',
-            'unit' => 'name',
-            'brand' => 'name',
+            'unit' => 'initials',
+            'brand' => 'initials',
             'group' => 'name',
             'status' => 'name',
-            'quantity' => 1,
+            'created_at' => true,
+            'updated_at' => true
         ];
         $this->items = $products;
     }
@@ -85,6 +86,7 @@ class ProductController extends GridController
     public function store(ProductRequest $request)
     {
         $product = Product::create($request->all());
+        
         ProductQuantity::createDefaultProductQuantities($product->id);
 
         return response()->json([

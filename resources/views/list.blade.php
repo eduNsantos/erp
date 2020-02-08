@@ -5,7 +5,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-hover table-striped">
                 <thead>
                     <tr>
                         @isset($multiSelect)
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($items as $item)
+                    @forelse ($items as $item)
                         <tr>
                             @isset($multiSelect)
                                 <td>
@@ -42,7 +42,13 @@
                                 @php 
                                     $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
                                 @endphp
-                                <td class="{{ $column }}">{{ $cell }}</td>
+                                @if (strpos($column, '_at'))
+                                    <td class="{{ $column }}">
+                                        {{ date('d/m/Y H:i:s', strtotime($cell)) }}
+                                    </td>
+                                @else
+                                    <td class="{{ $column }}">{{ $cell }}</td>
+                                @endif
                             @endforeach
                             <td>
                                 <button class="btn btn-primary">
@@ -50,7 +56,11 @@
                                 </button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty 
+                        <tr>
+                            <td colspan="{{ count($columns) + 1 }}" class="text-center">Nada encontrado.</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -75,7 +85,7 @@
 
         function removePlacingArrow(e) {
             e.preventDefault()
-            console.log($(e.target))
+            
             $('.placing-arrow').remove()
         }
 

@@ -13,7 +13,9 @@ return [
         'group' => 'Grupo',
         'status' => 'Status',
         'initials' => 'Sigla',
-        'id' => 'Código'
+        'id' => 'Código',
+        'created_at' => 'Data de cadastro',
+        'updated_at' => 'Última alteração',
     ],
     'sales' => 'Vendas',
     'general-registration' => 'Cadastramento geral'
