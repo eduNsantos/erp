@@ -2,15 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
 use Illuminate\Http\Request;
 
-class SalesController extends GridController
+class ClientController extends GridController
 {
+    const TRANSLATION_PREFIX = 'client';
+
     public function __construct()
     {
-        $this->items = [];
-        $this->columns = [];
+        $this->columns = [
+            'type' => true,
+            'register_number' => true,
+            'corporate_name' => true,
+            'fantasy_name' => true,
+            'main_contact' => 'client_id',
+            'main_contact' => 'name',
+            'main_contact' => 'email',
+            'main_contact' => 'phone',
+            'main_contact' => 'email_receive_nfe',
+            'main_contact' => 'email_receive_charge'
+        ];
+
+        $this->items = Client::all();;
     }
+
+    /**
+     * Export data to excel
+     */
+    public function exportToExcel()
+    {
+        return parent::_exportToExcel('Listagem de clientes');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +42,10 @@ class SalesController extends GridController
      */
     public function index()
     {
-        $columns = $this->columns;
-        $items = $this->items;
-
-        return view('list', compact('columns', 'items'));
+        return view('list', [
+            'columns' => $this->columns,
+            'items' => $this->items
+        ]);
     }
 
     /**
@@ -31,7 +55,7 @@ class SalesController extends GridController
      */
     public function create()
     {
-        //
+        return view('client.register');
     }
 
     /**

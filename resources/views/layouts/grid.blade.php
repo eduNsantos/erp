@@ -1,3 +1,7 @@
+@php
+    $translationPrefix = Route::current()->getController();
+    $translationPrefix = $translationPrefix::TRANSLATION_PREFIX;
+@endphp
 <div class="container-fluid mb-3">
     <div class="d-flex align-items-center">
         <a href="#filter" data-toggle="collapse" class="btn btn-primary">
@@ -25,7 +29,7 @@
                         </div>
                         <div class="col-9 text-left">
                             <label for="{{ $column }}">
-                                {{ $column }}
+                                {{ trans("messages.$translationPrefix.$column") }}
                             </label>
                         </div>
                     @endforeach

@@ -5,6 +5,7 @@ const dateFormat = require('dateformat');
 
 import axios from 'axios'
 import swal from 'sweetalert2'
+import 'jquery-mask-plugin'
 
 /**
  * Executa a função do menu e coloca no container
@@ -88,11 +89,22 @@ $(document).on('click', '.create-item', function (e) {
     axios.get($(item).attr('href'))
     .then(response => {
         swal.close()
-        registerModal.find('.modal-body').html(response.data)
-        registerModal.modal();
+            registerModal.find('.modal-body').html(response.data)
+            registerModal.modal();
+            applyMasks()
     })
 })
 
+function applyMasks() {
+    const registerNumber = $('.register_number')
+    const personType = $('.person_type')
+    
+    if (personType.value) {
+        $('.register_number').mask('000.000.000-00')
+    } else {
+        $('.register_number').mask('00.000.000/0000-00')
+    }
+}
 /**
  * Toggle checkboxes para alterar visibilidade das colunas
  */

@@ -16,15 +16,7 @@ class ProductController extends GridController
 {
     const TRANSLATION_PREFIX = "stock";
     public function __construct()
-    {
-        $products = Product::with([
-            'unit:id,name',
-            'brand',
-            'category',
-            'group',
-            'status'
-        ])->get();
-        
+    {        
         $this->columns = [
             'code' => true,
             'name' => true,
@@ -37,7 +29,13 @@ class ProductController extends GridController
             'created_at' => true,
             'updated_at' => true
         ];
-        $this->items = $products;
+        $this->items = Product::with([
+            'unit',
+            'brand',
+            'category',
+            'group',
+            'status'
+        ])->get();
     }
 
     /**

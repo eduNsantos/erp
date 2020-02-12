@@ -1,7 +1,5 @@
 @extends('layouts.grid')
 
-{{-- @section('export_route', route($exportRoute)) --}}
-
 @section('content')
     <div class="container-fluid">
         <div class="table-responsive">

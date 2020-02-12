@@ -11,6 +11,7 @@ header("Access-Control-Allow-Origin: *");
 |
 */
 
+use App\Http\Controllers\ClientController;
 use App\Module;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ Route::get('/', function () {
 })->name('modules');
 
 Route::group(['prefix' => '/sales'], function () {
-    Route::resource('/', 'SalesController');
+    Route::get('/', 'RouteController@sales')->name('sales.index');
+    Route::resource('/clients', 'ClientController');
 });
 
 Route::group(['prefix' => '/stock'], function () {

@@ -32,8 +32,7 @@ class CreateModuleMenuFunctionsTable extends Migration
             ['module_menu_id' => 1, 'name' => 'Grupo de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
             ['module_menu_id' => 1, 'name' => 'Marca de produto de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
             ['module_menu_id' => 2, 'name' => 'Movimentação de estoque por produto', 'icon' => 'fas fa-search', 'route' => 'product.index'],
-            ['module_menu_id' => 4, 'name' => 'Marca de produto', 'icon' => 'fas fa-edit', 'route' => 'product.index'],
-            ['module_menu_id' => 4, 'name' => 'Grupo de produto', 'icon' => 'fas fa-archive', 'route' => 'product.index'],
+            ['module_menu_id' => 4, 'name' => 'Clientes', 'icon' => 'fas fa-users', 'route' => 'clients.index'],
         ]);
     }
 
