@@ -25,7 +25,7 @@
                 <div class="row">
                     @foreach ($columns as $column => $relationField)
                         <div class="col-2">
-                            <input type="checkbox" name="{{ $column }}" id="{{ $column }}" checked="checked">
+                            <input type="checkbox" name="column-{{ $column }}" id="column-{{ $column }}" checked="checked">
                         </div>
                         <div class="col-9 text-left">
                             <label for="{{ $column }}">

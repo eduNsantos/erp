@@ -1,5 +1,7 @@
 <?php
 
+use App\ModuleMenu;
+use App\ModuleMenuFunction;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -24,15 +26,55 @@ class CreateModuleMenuFunctionsTable extends Migration
             $table->foreign('module_menu_id')->references('id')->on('module_menus');
         });
 
-        DB::table('module_menu_functions')->insert([
-            ['module_menu_id' => 1, 'name' => 'Consulta de produto', 'icon' => 'fas fa-boxes', 'route' => 'product.index'],
-            ['module_menu_id' => 1, 'name' => 'Unidade de medida', 'icon' => 'fas fa-folder', 'route' => 'product-unit.create'],
-            ['module_menu_id' => 1, 'name' => 'Consulta unidade de medida', 'icon' => 'fas fa-folder', 'route' => 'product-unit.index'],
-            ['module_menu_id' => 1, 'name' => 'Categoria de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
-            ['module_menu_id' => 1, 'name' => 'Grupo de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
-            ['module_menu_id' => 1, 'name' => 'Marca de produto de produto', 'icon' => 'fas fa-folder', 'route' => 'product.index'],
-            ['module_menu_id' => 2, 'name' => 'Movimentação de estoque por produto', 'icon' => 'fas fa-search', 'route' => 'product.index'],
-            ['module_menu_id' => 4, 'name' => 'Clientes', 'icon' => 'fas fa-users', 'route' => 'clients.index'],
+        ModuleMenuFunction::insert([
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Produtos',
+                'icon' => 'fas fa-boxes',
+                'route' => 'product.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Unidade de medida',
+                'icon' => 'fas fa-folder',
+                'route' => 'product-unit.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Categoria de produto',
+                'icon' => 'fas fa-folder',
+                'route' => 'product.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Grupo de produto',
+                'icon' => 'fas fa-folder',
+                'route' => 'product.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Marca de produto de produto',
+                'icon' => 'fas fa-folder',
+                'route' => 'product.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_CONSULT,
+                'name' => 'Movimentação de estoque por produto',
+                'icon' => 'fas fa-search',
+                'route' => 'product.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::SALES_CLIENT,
+                'name' => 'Clientes',
+                'icon' => 'fas fa-users',
+                'route' => 'client.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::SALES_ORDER,
+                'name' => 'Inserir pedido',
+                'icon' => 'fas fa-order',
+                'route' => 'order.index'
+            ],
         ]);
     }
 

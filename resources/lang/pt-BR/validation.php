@@ -152,7 +152,11 @@ return [
         'brand_id' => 'marca',
         'unit_id' => 'unidade',
         'product_category_id' => 'categoria',
-        'product_group_id' => 'grupo'
+        'product_group_id' => 'grupo',
+        'person_type' => 'tipo de pessoa',
+        'register_number' => 'CPF/CNPJ',
+        'corporate_name' => 'razão social/nome',
+        'fantasy_name' => 'nome fantasia/apelido',
     ],
 
 ];

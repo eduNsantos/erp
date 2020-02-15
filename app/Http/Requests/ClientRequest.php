@@ -13,7 +13,7 @@ class ClientRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,9 +24,9 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'register_number' => 'required|unique:clients,register_number',
+            'register_number' => 'required_if:person_type,CNPJ|unique:clients,register_number',
             'corporate_name' => 'required|unique:clients,corporate_name',
-            'fantasy_name' => 'required|unique:clients,fantasy_name',
+            'fantasy_name' => 'required_if:person_type,CNPJ||unique:clients,fantasy_name',
         ];
     }
 }

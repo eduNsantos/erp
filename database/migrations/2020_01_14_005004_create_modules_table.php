@@ -1,5 +1,6 @@
 <?php
 
+use App\Module;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,9 +23,24 @@ class CreateModulesTable extends Migration
         });
 
         DB::table('modules')->insert([
-            ['id' => 1, 'name' => 'sales', 'icon' => 'fas fa-scroll', 'route' => 'sales.index'],
-            ['id' => 2, 'name' => 'stock', 'icon' => 'fas fa-boxes', 'route' => 'stock.index'],
-            ['id' => 3, 'name' => 'general-registration', 'icon' => 'fas fa-receipt', 'route' => 'general_registration.index'],
+            [
+                'id' => Module::SALES,
+                'name' => 'sales',
+                'icon' => 'fas fa-scroll',
+                'route' => 'sales.index'
+            ],
+            [
+                'id' => Module::STOCK,
+                'name' => 'stock',
+                'icon' => 'fas fa-boxes',
+                'route' => 'stock.index'
+            ],
+            [
+                'id' => Module::GENERAL_REGISTRATION,
+                'name' => 'general-registration',
+                'icon' => 'fas fa-receipt',
+                'route' => 'general_registration.index'
+            ],
         ]);
     }
 

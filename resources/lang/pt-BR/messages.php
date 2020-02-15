@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'revenues' => 'Faturamento',
+    'sales' => [
+        'module_name' => 'Vendas',
+    ],
     'stock' => [
         'module_name' => 'Estoque',
         'code' => 'Código',
@@ -17,6 +19,12 @@ return [
         'created_at' => 'Data de cadastro',
         'updated_at' => 'Última alteração',
     ],
-    'sales' => 'Vendas',
+    'client' => [
+        'person_type' => 'Tipo de pessoa',
+        'register_number' => 'CPF/CNPJ',
+        'corporate_name' => 'Razão social',
+        'fantasy_name' => 'Nome fantasia',
+        'main_contact' => 'Contato principal'
+    ],
     'general-registration' => 'Cadastramento geral'
 ];

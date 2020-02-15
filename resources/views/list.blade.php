@@ -1,3 +1,8 @@
+@php
+    $translationPrefix = Route::current()->getController();
+    $translationPrefix = $translationPrefix::TRANSLATION_PREFIX;
+@endphp
+
 @extends('layouts.grid')
 
 @section('content')
@@ -11,13 +16,13 @@
                         @endisset
                         @foreach ($columns as $column => $relationField)
                             <th 
-                                class="{{ $column }}"
+                                class="column-{{ $column }}"
                                 draggable="true"
                                 ondrag="event.preventDefault()"
                                 ondragover="dragOver(event)"
                                 ondragend="removePlacingArrow(event)"
                             >
-                                {{ trans("messages.stock.$column") }}
+                                {{ trans("messages.$translationPrefix.$column") }}
                             </th>                      
                         @endforeach
                         <th>Ações</th>
@@ -41,11 +46,22 @@
                                     $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
                                 @endphp
                                 @if (strpos($column, '_at'))
-                                    <td class="{{ $column }}">
+                                    <td class="column-{{ $column }}">
                                         {{ date('d/m/Y H:i:s', strtotime($cell)) }}
                                     </td>
                                 @else
-                                    <td class="{{ $column }}">{{ $cell }}</td>
+                                    <td class="column-{{ $column }}">
+                                        @if ($cell)
+                                            {{ $cell }}  
+                                        @else
+                                            {!! '<span 
+                                                    class="text-danger"
+                                                    data-toggle="tooltip"
+                                                    title="Não informado no cadastro">
+                                                    Não definido
+                                                </span>' !!}
+                                        @endif
+                                    </td>
                                 @endif
                             @endforeach
                             <td>

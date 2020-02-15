@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class UnitController extends GridController
 {
+    const TRANSLATION_PREFIX = 'unit';
     public function __construct()
     {
         $this->columns = [

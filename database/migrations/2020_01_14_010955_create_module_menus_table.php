@@ -1,5 +1,7 @@
 <?php
 
+use App\Module;
+use App\ModuleMenu;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,10 +25,31 @@ class CreateModuleMenusTable extends Migration
         });
 
         DB::table('module_menus')->insert([
-            ['id' => 1,'module_id' => 2, 'name' => 'Produto'],
-            ['id' => 2,'module_id' => 2, 'name' => 'Movimentação'],
-            ['id' => 3,'module_id' => 2, 'name' => 'Consultas'],
-            ['id' => 4,'module_id' => 3, 'name' => 'Clientes'],
+            [
+                'id' => ModuleMenu::STOCK_PRODUCT,
+                'module_id' => Module::STOCK,
+                'name' => 'Produto'
+            ],
+            [
+                'id' => ModuleMenu::STOCK_MOVEMENT,
+                'module_id' => Module::STOCK,
+                'name' => 'Movimentação'
+            ],
+            [
+                'id' => ModuleMenu::STOCK_CONSULT,
+                'module_id' => Module::STOCK,
+                'name' => 'Consultas'
+            ],
+            [
+                'id' => ModuleMenu::SALES_CLIENT,
+                'module_id' => Module::SALES,
+                'name' => 'Clientes'
+            ],
+            [
+                'id' => ModuleMenu::SALES_ORDER,
+                'module_id' => Module::SALES,
+                'name' => 'Pedidos'
+            ],
         ]);
     }
 

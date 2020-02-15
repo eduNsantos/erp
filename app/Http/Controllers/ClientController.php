@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
 
 class ClientController extends GridController
@@ -12,16 +13,16 @@ class ClientController extends GridController
     public function __construct()
     {
         $this->columns = [
-            'type' => true,
+            'person_type' => true,
             'register_number' => true,
             'corporate_name' => true,
             'fantasy_name' => true,
-            'main_contact' => 'client_id',
-            'main_contact' => 'name',
-            'main_contact' => 'email',
-            'main_contact' => 'phone',
-            'main_contact' => 'email_receive_nfe',
-            'main_contact' => 'email_receive_charge'
+            // 'main_contact' => 'client_id',
+            // 'main_contact' => 'name',
+            // 'main_contact' => 'email',
+            // 'main_contact' => 'phone',
+            // 'main_contact' => 'email_receive_nfe',
+            // 'main_contact' => 'email_receive_charge'
         ];
 
         $this->items = Client::all();;
@@ -64,9 +65,13 @@ class ClientController extends GridController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(ClientRequest $request) {
+        Client::create($request->all());
+
+        return response()->json([
+            'message' => 'Cliente cadastrado com sucesso!',
+            'type' => 'success'
+        ]);
     }
 
     /**

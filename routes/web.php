@@ -23,7 +23,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => '/sales'], function () {
     Route::get('/', 'RouteController@sales')->name('sales.index');
-    Route::resource('/clients', 'ClientController');
+    Route::get('/client/exportToExcel', 'ClientController@exportToExcel');
+    Route::resource('/client', 'ClientController');
 });
 
 Route::group(['prefix' => '/stock'], function () {
