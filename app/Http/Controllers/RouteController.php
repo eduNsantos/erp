@@ -2,22 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Module;
 use App\ModuleMenu;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
 {
-    public const REVENUES = 1;
-    public const STOCK = 2;
-    public const SALES = 3;
-    public const GENERAL_REGISTRATION = 4;
-
     /**
      * Open stock module
      */
     public function stock()
     {
-        $menus = $this->getMenus(self::STOCK);
+        $menus = $this->getMenus(Module::STOCK);
 
         return view('menu', compact('menus'));
     }
@@ -27,7 +23,7 @@ class RouteController extends Controller
      */
     public function general_registration()
     {
-        $menus = $this->getMenus(self::GENERAL_REGISTRATION);
+        $menus = $this->getMenus(Module::GENERAL_REGISTRATION);
 
         return view('menu', compact('menus'));
     }
@@ -37,7 +33,7 @@ class RouteController extends Controller
      */
     public function sales()
     {
-        $menus = $this->getMenus(self::SALES);
+        $menus = $this->getMenus(Module::SALES);
 
         return view('menu', compact('menus'));
     }

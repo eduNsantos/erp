@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row h-100 px-0 mx-0">
-        <div class="h-100 navbar navbar-light bg-light shadow align-content-start col-2 px-0 py-0" id="sidebar">
+        <div class="h-100 navbar navbar-light bg-light shadow align-content-start d-none d-md-inline-block col-md-2 px-0 py-0" id="sidebar">
             <ul class="navbar-nav w-100">
                 @foreach ($menus as $menu)
                     <li class="nav-item border px-3">

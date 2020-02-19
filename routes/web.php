@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +24,8 @@ Route::group(['prefix' => '/sales'], function () {
     Route::get('/', 'RouteController@sales')->name('sales.index');
     Route::get('/client/exportToExcel', 'ClientController@exportToExcel');
     Route::resource('/client', 'ClientController');
+    Route::get('/order/exportToExcel', 'OrderController@exportToExcel');
+    Route::resource('/order', 'OrderController');
 });
 
 Route::group(['prefix' => '/stock'], function () {

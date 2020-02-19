@@ -71,9 +71,9 @@ class CreateModuleMenuFunctionsTable extends Migration
             ],
             [
                 'module_menu_id' => ModuleMenu::SALES_ORDER,
-                'name' => 'Inserir pedido',
-                'icon' => 'fas fa-order',
-                'route' => 'order.index'
+                'name' => 'Novo pedido',
+                'icon' => 'fas fa-clipboard',
+                'route' => 'order.create'
             ],
         ]);
     }

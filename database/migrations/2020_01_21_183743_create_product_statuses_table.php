@@ -1,5 +1,6 @@
 <?php
 
+use App\ProductStatus;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,23 +22,23 @@ class CreateProductStatusesTable extends Migration
 
         DB::table('product_statuses')->insert([
             [
-                'id' => 1,
+                'id' => ProductStatus::ACTIVE,
                 'name' => 'Ativo'
             ],
             [
-                'id' => 2,
+                'id' => ProductStatus::INACTIVE,
                 'name' => 'Inativo'
             ],
             [
-                'id' => 3,
+                'id' => ProductStatus::SUSPENDED,
                 'name' => 'Suspenso'
             ],
             [
-                'id' => 4,
+                'id' => ProductStatus::DESCONTINUED,
                 'name' => 'Fora de linha'
             ],
             [
-                'id' => 5,
+                'id' => ProductStatus::DEVELOPMENT,
                 'name' => 'Em desenvolvimento'
             ],
         ]);

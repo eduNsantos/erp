@@ -31,11 +31,6 @@ class CreateModuleMenusTable extends Migration
                 'name' => 'Produto'
             ],
             [
-                'id' => ModuleMenu::STOCK_MOVEMENT,
-                'module_id' => Module::STOCK,
-                'name' => 'Movimentação'
-            ],
-            [
                 'id' => ModuleMenu::STOCK_CONSULT,
                 'module_id' => Module::STOCK,
                 'name' => 'Consultas'

@@ -6,6 +6,7 @@ const dateFormat = require('dateformat');
 import axios from 'axios'
 import swal from 'sweetalert2'
 import 'jquery-mask-plugin'
+import 'select2'
 
 /**
  * Executa a função do menu e coloca no container
@@ -30,6 +31,7 @@ $(document).on('click', '#sidebar .function-item', function(e) {
 
         $('[data-toggle="tooltip"]').tooltip()
         updateDateInfo(formated)
+        $('.select2').select2()
     });
 });
 
@@ -89,8 +91,8 @@ $(document).on('click', '.create-item', function (e) {
     axios.get($(item).attr('href'))
     .then(response => {
         swal.close()
-            registerModal.find('.modal-body').html(response.data)
-            registerModal.modal();
+        registerModal.find('.modal-body').html(response.data)
+        registerModal.modal()
     })
 })
 
@@ -106,7 +108,6 @@ $(document).on('click', '.toggle-columns', function (e) {
  */
 $(document).on('change', '#columns input[type=checkbox]', function (e) {
     const column = $(this).prop('id')
-
     $(`.${column}`).toggle();
 })
 
