@@ -41,7 +41,10 @@ class OrderController extends GridController
      */
     public function create()
     {
-        $products = Product::has('status', ProductStatus::ACTIVE)->get();
+        $products = Product::has('status', ProductStatus::ACTIVE)
+            ->with('unit')
+            ->get()
+        ;
         $clients = Client::all();
 
         return view('order.register', compact('products', 'clients'));

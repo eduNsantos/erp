@@ -6,7 +6,9 @@ const dateFormat = require('dateformat');
 import axios from 'axios'
 import swal from 'sweetalert2'
 import 'jquery-mask-plugin'
-import 'select2'
+import 'select2/dist/js/select2.full'
+
+let tableItems
 
 /**
  * Executa a função do menu e coloca no container
@@ -24,6 +26,7 @@ $(document).on('click', '#sidebar .function-item', function(e) {
     .then(() => {
         let initialDate = $('#initial_date').val();
         let finalDate = $('#final_date').val();
+        // tableItems = JSON.parse($('.table-items').attr('data'))
         const formated = {
             initialDate: initialDate,
             finalDate: finalDate
@@ -32,8 +35,14 @@ $(document).on('click', '#sidebar .function-item', function(e) {
         $('[data-toggle="tooltip"]').tooltip()
         updateDateInfo(formated)
         $('.select2').select2()
-    });
-});
+    })
+})
+
+$(document).on('click', 'th', function (e) {
+    // $('tbody').children().remove();
+
+    // for 
+})
 
 /**
  * Abstração para envio de formulário via post ajax
@@ -93,6 +102,7 @@ $(document).on('click', '.create-item', function (e) {
         swal.close()
         registerModal.find('.modal-body').html(response.data)
         registerModal.modal()
+        $('.select2').select2()
     })
 })
 
