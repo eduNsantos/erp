@@ -15,4 +15,14 @@ class Module extends Model
         'stock',
         'general-registration',
     ];
+
+    public static function getCurrentModule (): int
+    {
+        return session('current_module_id');
+    }
+
+    public static function setCurrentModule (int $moduleId)
+    {
+        return session(['current_module_id' => $moduleId]);
+    }
 }

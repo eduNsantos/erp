@@ -21,4 +21,14 @@ class ModuleMenu extends Model
     {
         return $this->hasMany(ModuleMenuFunction::class);
     }
+    
+    public static function getMenus()
+    {
+        $menus = self::whereHas('functions')
+            ->where('module_id', Module::getCurrentModule())
+            ->get()
+        ;
+
+        return $menus;
+    }
 }

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('client_id');
+            $table->tinyInteger('status');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

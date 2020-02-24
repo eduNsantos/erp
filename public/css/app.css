@@ -11371,6 +11371,7 @@ a.text-dark:focus {
   height: calc(1.6em + 0.75rem + 2px);
   border-radius: 0;
   background: none;
+  width: 100%;
 }
 
 .select2 .select2-selection--single:focus {

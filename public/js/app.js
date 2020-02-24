@@ -53235,31 +53235,6 @@ var dateFormat = __webpack_require__(/*! dateformat */ "./node_modules/dateforma
 
 
 var tableItems;
-/**
- * Executa a função do menu e coloca no container
- */
-
-$(document).on('click', '#sidebar .function-item', function (e) {
-  var menuContent = $('#menu-content');
-  var url = $(this).attr('href');
-  var loader = "<div class=\"row align-items-center justify-content-center h-100\"><div class=\"lds-dual-ring\"></div></div>";
-  e.preventDefault();
-  menuContent.html(loader);
-  axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(function (response) {
-    return $(menuContent).html(response.data);
-  }).then(function () {
-    var initialDate = $('#initial_date').val();
-    var finalDate = $('#final_date').val(); // tableItems = JSON.parse($('.table-items').attr('data'))
-
-    var formated = {
-      initialDate: initialDate,
-      finalDate: finalDate
-    };
-    $('[data-toggle="tooltip"]').tooltip();
-    updateDateInfo(formated);
-    $('.select2').select2();
-  });
-});
 $(document).on('click', 'th', function (e) {// $('tbody').children().remove();
   // for 
 });

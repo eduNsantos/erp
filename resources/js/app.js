@@ -6,42 +6,37 @@ const dateFormat = require('dateformat');
 import axios from 'axios'
 import swal from 'sweetalert2'
 import 'jquery-mask-plugin'
-import 'select2/dist/js/select2.full'
 
-let tableItems
-
-/**
- * Executa a função do menu e coloca no container
- */
-$(document).on('click', '#sidebar .function-item', function(e) {
-    const menuContent = $('#menu-content')
-    const url = $(this).attr('href');
-    const loader = `<div class="row align-items-center justify-content-center h-100"><div class="lds-dual-ring"></div></div>`
-
-    e.preventDefault();
-    (menuContent).html(loader)
-
-    axios.get(url)
-    .then(response => $(menuContent).html(response.data))
-    .then(() => {
-        let initialDate = $('#initial_date').val();
-        let finalDate = $('#final_date').val();
-        // tableItems = JSON.parse($('.table-items').attr('data'))
-        const formated = {
-            initialDate: initialDate,
-            finalDate: finalDate
-        }
-
-        $('[data-toggle="tooltip"]').tooltip()
-        updateDateInfo(formated)
-        $('.select2').select2()
-    })
+$(document).on('click', '.add-item', function () {
+    let formRow = $(this).closest('.form-row')
+    let clonedFormRow = $(formRow).clone()
+    clonedFormRow.find('input, select').val('')
+    $(formRow).after(clonedFormRow)
 })
 
-$(document).on('click', 'th', function (e) {
-    // $('tbody').children().remove();
+$(document).on('keyup', '.product-search', function (e) {
+    let searchedProduct = $(this).val().toLowerCase()
+    let product = products.find(product => {
+        let productCode = product.code.toLowerCase()
+        let productName = product.name.toLowerCase()
+        
+        if (productCode.indexOf(searchedProduct) != -1 || productName.indexOf(searchedProduct) != -1) {
+            return true
+        }
+    })
 
-    // for 
+    let productId = $(this).closest('.form-row').find('[name="product_id[]"]')
+    let description = $(this).closest('.form-row').find('.description')
+    let unit = $(this).closest('.form-row').find('.unit')
+
+    if (typeof product !== "undefined") {
+        productId.val(product.id)
+        description.val(product.description)
+        unit.val(product.unit.initials)
+    } else {
+        productId.val('')
+        description.val('Produto não encontrado. Procure novamente.')
+    }
 })
 
 /**
@@ -102,7 +97,6 @@ $(document).on('click', '.create-item', function (e) {
         swal.close()
         registerModal.find('.modal-body').html(response.data)
         registerModal.modal()
-        $('.select2').select2()
     })
 })
 

@@ -13,9 +13,9 @@ class RouteController extends Controller
      */
     public function stock()
     {
-        $menus = $this->getMenus(Module::STOCK);
+        Module::setCurrentModule(Module::STOCK);
 
-        return view('menu', compact('menus'));
+        return view('menu');
     }
     
     /**
@@ -23,9 +23,9 @@ class RouteController extends Controller
      */
     public function general_registration()
     {
-        $menus = $this->getMenus(Module::GENERAL_REGISTRATION);
+        Module::setCurrentModule(Module::GENERAL_REGISTRATION);
 
-        return view('menu', compact('menus'));
+        return view('menu');
     }
     
     /**
@@ -33,18 +33,8 @@ class RouteController extends Controller
      */
     public function sales()
     {
-        $menus = $this->getMenus(Module::SALES);
+        Module::setCurrentModule(Module::SALES);
 
-        return view('menu', compact('menus'));
-    }
-
-    private function getMenus($moduleId)
-    {
-        $menus = ModuleMenu::whereHas('functions')
-            ->where('module_id', $moduleId)
-            ->get()
-        ;
-
-        return $menus;
+        return view('menu');
     }
 }

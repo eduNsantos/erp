@@ -12,4 +12,14 @@ class ModuleMenuFunction extends Model
         'icon',
         'route',
     ];
+
+    public static function getCurrentFunction (): int
+    {
+        return session('current_function_id');
+    }
+
+    public static function setCurrentFunction (int $functionid)
+    {
+        return session(['current_function_id' => $functionid]);
+    }
 }

@@ -24,7 +24,7 @@
             </div>
             <div class="col-2 form-group">
                 <label for="brand_id">Marca</label>
-                <select class="select2 form-control" name="brand_id" id="brand_id">
+                <select class=" form-control" name="brand_id" id="brand_id">
                     <option value="">Selecione</option>
                     @foreach ($brands as $brand)
                         <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -33,7 +33,7 @@
             </div>
             <div class="col form-group">
                 <label for="product_category_id">Categoria</label>
-                <select class="select2 form-control" name="product_category_id" id="product_category_id">
+                <select class=" form-control" name="product_category_id" id="product_category_id">
                     <option value="">Selecione</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -42,7 +42,7 @@
             </div>
             <div class="col form-group">
                 <label for="product_group_id">Grupo do produto</label>
-                <select class="select2 form-control" name="product_group_id" id="product_group_id">
+                <select class=" form-control" name="product_group_id" id="product_group_id">
                     <option value="">Selecione</option>
                     @foreach ($groups as $group)
                         <option value="{{ $group->id }}">{{ $group->name }}</option>
@@ -51,7 +51,7 @@
             </div>
             <div class="col form-group">
                 <label for="product_status_id">Status</label>
-                <select class="select2 form-control" name="product_status_id" id="product_status_id">
+                <select class=" form-control" name="product_status_id" id="product_status_id">
                     @foreach ($statuses as $status)
                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                     @endforeach>
@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-3 form-group">
                     <label for="unit_id">Unidade</label>
-                    <select class="select2" name="unit_id" id="unit">
+                    <select class="form-control" name="unit_id" id="unit">
                         <option value="">Selecione</option>
                         @foreach ($units as $unit)
                             <option value="{{ $unit->id }}">{{ $unit->name }}</option>

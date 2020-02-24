@@ -58,7 +58,7 @@ class OrderController extends GridController
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

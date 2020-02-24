@@ -12,7 +12,7 @@
         <div class="row mb-2">
             <div class="col">
                 <label for="person_type">Tipo de pessoa *</label>
-                <select name="person_type" class="select2">
+                <select name="person_type" class="form-control">
                     <option value="CPF">Pessoa física</option>
                     <option value="CNPJ">Jurídica</option>
                 </select>
