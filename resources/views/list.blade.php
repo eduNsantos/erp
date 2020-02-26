@@ -53,7 +53,7 @@
                 </a>
             </div>
         </div>
-        <div id="filter" class="mb-3" aria-expanded="false">
+        <div id="filter" class="mb-3 d-none" aria-expanded="false">
             <form action="#">
                 <div class="row align-items-end">
                     <div class="col-4">
@@ -77,7 +77,7 @@
     </div>
     <div>
         <div class="container-fluid">
-            <div class="table-responsive">
+            <div class="table-responsive table-list">
                 <table class="table table-hover table-striped">
                     <thead>
                         <tr>
@@ -91,18 +91,10 @@
                                     ondrag="onDragStart(event)"
                                     ondragover="dragOver(event)"
                                     ondragend="removePlacingArrow(event)"
-                                    style="white-space: nowrap"
-                                    column="{{ $column }}"
-                                >
+                                    style="white-space: nowrap; cursor: pointer"
+                                    column="{{ $column }}">
                                     {{ trans("messages.$translationPrefix.$column") }}
-                                    <span class="th-order">
-                                        <span class="caret-up">
-                                            <i class="fas fa-caret-up"></i>
-                                        </span>
-                                        <span class="caret-down">
-                                            <i class="fas fa-caret-down"></i>
-                                        </span>
-                                    </span>
+                                    <span class="order-icon"></span>
                                 </th>                      
                             @endforeach
                             <th>Ações</th>

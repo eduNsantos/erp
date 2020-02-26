@@ -23,6 +23,7 @@ class ProductController extends GridController
             'description' => true,
             'category' => 'name',
             'unit' => 'initials',
+            'multiple' => true,
             'brand' => 'initials',
             'group' => 'name',
             'status' => 'name',

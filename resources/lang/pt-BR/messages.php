@@ -15,9 +15,17 @@ return [
         'group' => 'Grupo',
         'status' => 'Status',
         'initials' => 'Sigla',
+        'multiple' => 'Multiplo embalagem',
         'id' => 'Código',
         'created_at' => 'Data de cadastro',
         'updated_at' => 'Última alteração',
+        'product-unit' => [
+            'id' => 'Código',
+            'name' => 'Nome',
+            'initials' => 'Sigla',
+            'created_at' => 'Data de cadastro',
+            'updated_at' => 'Última alteração'
+        ]
     ],
     'client' => [
         'person_type' => 'Tipo de pessoa',

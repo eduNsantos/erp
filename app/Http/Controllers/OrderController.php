@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Requests\OrderRequest;
 use App\Product;
 use App\ProductStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends GridController
 {
@@ -56,9 +59,19 @@ class OrderController extends GridController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        dd($request->all());
+        $order = [ 
+            'client_id' => $request->client_id,
+            'user_id' => Auth::id()
+        ];
+
+        dd($order);
+
+        for ($i = 0; $i < count($request->product_id); $i++ ) {
+            $product = Product::find($request->product_id[$i]);
+            $quantity = $request->quantity[$i];
+        }
     }
 
     /**

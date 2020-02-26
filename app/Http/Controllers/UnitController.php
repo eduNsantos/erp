@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class UnitController extends GridController
 {
-    const TRANSLATION_PREFIX = 'unit';
+    const TRANSLATION_PREFIX = 'stock.product-unit';
     public function __construct()
     {
         $this->columns = [

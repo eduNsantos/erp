@@ -1,12 +1,11 @@
 require('./bootstrap');
 require('@fortawesome/fontawesome-free/js/all');
-
-const dateFormat = require('dateformat');
+window.swal = require('sweetalert2')
 
 import axios from 'axios'
-import swal from 'sweetalert2'
 import 'jquery-mask-plugin'
 
+const dateFormat = require('dateformat');
 const items = []
 let tableColumns = []
 
@@ -29,11 +28,27 @@ $(document).ready(function () {
         })
         items.push(item)
     }
+
+    $('[data-toggle]').tooltip()
 })
 
 $(document).on('click', 'th[column]', function (e) {
     let column = $(this).attr('column')
     let tableItems = $('td[column]')
+    let order = $(this).attr('order')
+    
+    $('th[order]').removeAttr('order')
+    $('.order-icon').empty()
+
+    if (typeof order == "undefined" || order == "DESC") {
+        $(this).attr('order', 'ASC')
+        $(this).find('.order-icon').html('<i class="fas fa-caret-down"></i>')
+    } else {
+        $(this).attr('order', 'DESC')
+        $(this).find('.order-icon').html('<i class="fas fa-caret-up"></i>')
+    }
+
+    order = $(this).attr('order')
 
     //Ordena o array do menor para o maior
     items.sort((a, b) => {
@@ -48,6 +63,10 @@ $(document).on('click', 'th[column]', function (e) {
         return 0
     })
 
+    if (order == "DESC") {
+        items.reverse()
+    }
+
     // substitui os valores nos campos
     let i = 0
     while (i < tableItems.length) {
@@ -57,40 +76,6 @@ $(document).on('click', 'th[column]', function (e) {
                 i++
             })
         })
-    }
-
-    console.log(items)
-})
-
-$(document).on('click', '.add-item', function () {
-    let formRow = $(this).closest('.form-row')
-    let clonedFormRow = $(formRow).clone()
-    clonedFormRow.find('input, select').val('')
-    $(formRow).after(clonedFormRow)
-})
-
-$(document).on('keyup', '.product-search', function (e) {
-    let searchedProduct = $(this).val().toLowerCase()
-    let product = products.find(product => {
-        let productCode = product.code.toLowerCase()
-        let productName = product.name.toLowerCase()
-        
-        if (productCode.indexOf(searchedProduct) != -1 || productName.indexOf(searchedProduct) != -1) {
-            return true
-        }
-    })
-
-    let productId = $(this).closest('.form-row').find('[name="product_id[]"]')
-    let description = $(this).closest('.form-row').find('.description')
-    let unit = $(this).closest('.form-row').find('.unit')
-
-    if (typeof product !== "undefined") {
-        productId.val(product.id)
-        description.val(product.description)
-        unit.val(product.unit.initials)
-    } else {
-        productId.val('')
-        description.val('Produto não encontrado. Procure novamente.')
     }
 })
 
