@@ -7,6 +7,61 @@ import axios from 'axios'
 import swal from 'sweetalert2'
 import 'jquery-mask-plugin'
 
+const items = []
+let tableColumns = []
+
+$(document).ready(function () {
+    let columns = $('th[column]').toArray()
+    let values = $('td[column]').toArray()
+    let count = 0;
+
+    // Seleciona as colunas disponíveis
+    tableColumns = columns.map(column => $(column).attr('column'))
+    // Seleciona os valores e tira os espaços em branco
+    values = values.map(value => $(value).text().trim())
+
+    // Seleciona cada item e cria um objeto
+    while (count < values.length) {
+        let item = {}
+        tableColumns.forEach(column => {
+            item[column] = values[count]
+            count++
+        })
+        items.push(item)
+    }
+})
+
+$(document).on('click', 'th[column]', function (e) {
+    let column = $(this).attr('column')
+    let tableItems = $('td[column]')
+
+    //Ordena o array do menor para o maior
+    items.sort((a, b) => {
+        if (a[column] > b[column]) {
+            return 1
+        }
+        
+        if (a[column] < b[column]) {
+            return -1
+        }
+
+        return 0
+    })
+
+    // substitui os valores nos campos
+    let i = 0
+    while (i < tableItems.length) {
+        items.forEach(item => {
+            tableColumns.forEach(column => {
+                $(tableItems[i]).text(item[column])
+                i++
+            })
+        })
+    }
+
+    console.log(items)
+})
+
 $(document).on('click', '.add-item', function () {
     let formRow = $(this).closest('.form-row')
     let clonedFormRow = $(formRow).clone()

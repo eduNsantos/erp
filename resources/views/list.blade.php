@@ -88,11 +88,21 @@
                                 <th 
                                     class="column-{{ $column }}"
                                     draggable="true"
-                                    ondrag="event.preventDefault()"
+                                    ondrag="onDragStart(event)"
                                     ondragover="dragOver(event)"
                                     ondragend="removePlacingArrow(event)"
+                                    style="white-space: nowrap"
+                                    column="{{ $column }}"
                                 >
                                     {{ trans("messages.$translationPrefix.$column") }}
+                                    <span class="th-order">
+                                        <span class="caret-up">
+                                            <i class="fas fa-caret-up"></i>
+                                        </span>
+                                        <span class="caret-down">
+                                            <i class="fas fa-caret-down"></i>
+                                        </span>
+                                    </span>
                                 </th>                      
                             @endforeach
                             <th>Ações</th>
@@ -116,11 +126,11 @@
                                         $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
                                     @endphp
                                     @if (strpos($column, '_at'))
-                                        <td class="column-{{ $column }}">
+                                        <td class="column-{{ $column }}" column="{{ $column }}">
                                             {{ date('d/m/Y H:i:s', strtotime($cell)) }}
                                         </td>
                                     @else
-                                        <td class="column-{{ $column }}">
+                                        <td class="column-{{ $column }}" column="{{ $column }}">
                                             @if ($cell)
                                                 {{ $cell }}  
                                             @else
@@ -150,16 +160,21 @@
             </div>
         </div>
         <script>
+            function onDragStart (e) {
+                e.preventDefault()
+            }
+
             function dragOver(e) {
                 const element = $(e.target)
                 const pos = {
                     top: element[0].offsetHeight,
                     left: element[0].offsetLeft
                 }
-    
+
                 $('.placing-arrow').remove()
                 const arrow = $(`
-                    <span class="placing-arrow position-absolute" style="left:${pos.left + 10}px;top:${pos.top-10}px">
+                    <span 
+                        class="placing-arrow position-absolute text-success">
                         <i class="fas fa-arrow-down"></i>
                     </span>
                 `)
