@@ -3,6 +3,13 @@
 return [
     'sales' => [
         'module_name' => 'Vendas',
+        'order' => [
+            'id' => 'Controle',
+            'client' => 'Cliente',
+            'user' => 'Vendedor',
+            'created_at' => 'Data de cadastro',
+            'updated_at' => 'Última alteração'
+        ]
     ],
     'stock' => [
         'module_name' => 'Estoque',

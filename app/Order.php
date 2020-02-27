@@ -20,4 +20,23 @@ class Order extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getTotalAttribute()
+    {
+        $orderProduct = OrderProduct::where('order_id', $this->id)
+            ->sum('quantity')
+        ;
+
+        return $orderProduct;
+    }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use App\Http\Requests\OrderRequest;
+use App\Order;
+use App\OrderProduct;
 use App\Product;
 use App\ProductStatus;
 use Illuminate\Http\Request;
@@ -12,9 +14,19 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends GridController
 {
+    const TRANSLATION_PREFIX = 'sales.order';
+
     public function __construct()
     {
-        // $this->items = Order
+        $this->columns = [
+            'id' => true,
+            'client' => 'corporate_name',
+            'user' => 'name',
+            'total' => true,
+            'created_at' => true,
+            'updated_at' => true
+        ];
+        $this->items = Order::with('client', 'user')->get();
     }
     /**
      * Export data to excel
@@ -61,17 +73,24 @@ class OrderController extends GridController
      */
     public function store(OrderRequest $request)
     {
-        $order = [ 
+        $order = Order::create([ 
             'client_id' => $request->client_id,
-            'user_id' => Auth::id()
-        ];
-
-        dd($order);
+            'user_id' => Auth::id(),
+            'status' => $request->status
+        ]);
 
         for ($i = 0; $i < count($request->product_id); $i++ ) {
-            $product = Product::find($request->product_id[$i]);
-            $quantity = $request->quantity[$i];
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $request->product_id[$i],
+                'quantity' => $request->quantity[$i]
+            ]);
         }
+
+        return response()->json([
+            'message' => 'Pedido criado com sucesso!',
+            'type' => 'success'
+        ]);
     }
 
     /**

@@ -26,7 +26,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_id.*' => 'required',
+            'client_id' => 'required|exists:clients,id',
+            'product_id.*' => 'required|exists:products,id',
             'quantity.*' => 'required'
         ];
     }
@@ -36,9 +37,12 @@ class OrderRequest extends FormRequest
         $messages = [];
 
         foreach ($this->request->get('product_id') as $key => $value) {
-            dump(Product::find($value));
+            $item = $key + 1;
+            $messages["product_id.$key.required"] = 'Produto não especificado';
+            $messages["product_id.$key.exists"] = 'produto não encontrado no banco de dados ('. $this->request->get('description')[$key].')';
+            $messages["quantity.$key.required"] = 'Quantidade do '. $item  . 'º produto não informada';
         }
 
-        die();
+        return $messages; 
     }
 }

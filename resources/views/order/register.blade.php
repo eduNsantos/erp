@@ -15,6 +15,13 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-control">
+                        <option value="1">Ativo</option>
+                        <option value="2">Fechado</option>
+                    </select>
+                </div>
             </div>
             <div class="mt-2">
                 <h4>Produtos</h4>
@@ -31,7 +38,7 @@
                     <input type="hidden" name="product_id[]" class="form-control"s>
                     <div class="col-6">
                         <label>Descrição</label>
-                        <input type="text" class="description form-control" disabled="disabled">
+                        <input type="text" name="description[]" class="description form-control" readonly="readonly">
                     </div>
                     <div class="col-1">
                         <label>UN</label>
@@ -111,7 +118,7 @@
                     unit.val(product.unit.initials)
                 } else {
                     productId.val('')
-                    description.val('Produto não encontrado. Procure novamente.')
+                    description.val('Produto não encontrado. Remove a linha ou procure novamente')
                 }
             })
         </script>
