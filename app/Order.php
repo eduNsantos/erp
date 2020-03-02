@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -31,12 +33,29 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getTotalAttribute()
+    public function getItemQuantityAttribute()
     {
         $orderProduct = OrderProduct::where('order_id', $this->id)
             ->sum('quantity')
         ;
 
         return $orderProduct;
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        $products = Product::whereHas('order_products', function (Builder $query) {
+                $query->where('order_id', $this->id);
+            })
+            ->get()
+        ;
+        $quantities = OrderProduct::where('order_id', $this->id)->get();
+        
+        $total = 0;
+        for ($i = 0; $i < count($products); $i++) {
+            $total += $products[$i]->price * $quantities[$i]->quantity;
+        }
+
+        return 'R$ ' . number_format($total, 2, ',', '.');
     }
 }

@@ -22,7 +22,8 @@ class OrderController extends GridController
             'id' => true,
             'client' => 'corporate_name',
             'user' => 'name',
-            'total' => true,
+            'item_quantity' => true,
+            'total_price' => true,
             'created_at' => true,
             'updated_at' => true
         ];

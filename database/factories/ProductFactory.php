@@ -12,6 +12,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'description' => $faker->name,
         'multiple' => $faker->numberBetween(0, 99),
         'unit_id' => $faker->numberBetween(1,3),
+        'price' => $faker->numberBetween(10, 40), 
         'brand_id' => 1,
         'product_category_id' => $faker->numberBetween(1,2),
         'product_group_id' => $faker->numberBetween(1,2),

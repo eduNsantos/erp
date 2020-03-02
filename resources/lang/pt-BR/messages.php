@@ -6,7 +6,9 @@ return [
         'order' => [
             'id' => 'Controle',
             'client' => 'Cliente',
+            'item_quantity' => 'Quantidade de itens',
             'user' => 'Vendedor',
+            'total_price' => 'Total',
             'created_at' => 'Data de cadastro',
             'updated_at' => 'Última alteração'
         ]

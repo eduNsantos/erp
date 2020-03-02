@@ -47,4 +47,9 @@ class Product extends Model
     {
         return $this->belongsTo(ProductStatus::class, 'product_status_id');
     }
+
+    public function order_products()
+    {
+        return $this->hasMany(OrderProduct::class);
+    }
 }
