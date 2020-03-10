@@ -2,9 +2,13 @@ require('./bootstrap');
 require('@fortawesome/fontawesome-free/js/all');
 window.swal = require('sweetalert2')
 
+import Vue from 'vue';
 import axios from 'axios'
 import 'jquery-mask-plugin'
 
+Vue.component('vc-order', require('./components/Order.vue').default)
+
+const app = new Vue({ el: '#menu-content' })
 const dateFormat = require('dateformat');
 const items = []
 let tableColumns = []
