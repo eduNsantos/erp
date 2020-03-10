@@ -52,4 +52,12 @@ class Product extends Model
     {
         return $this->hasMany(OrderProduct::class);
     }
+
+    /**
+     * Return price with R$ and formated with comma
+     */
+    public function getConvertedPriceAttribute()
+    {
+        return 'R$ ' . number_format(self::find($this->id)->price, 2, ',', '.');
+    }
 }
