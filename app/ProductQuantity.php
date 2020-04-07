@@ -6,12 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductQuantity extends Model
 {
-    const CURRENT = 1;
+    const REAL = 1;
     const RESERVED = 2;
     const AVAILABLE = 3;
 
     protected $fillable = ['product_id', 'type', 'quantity'];
 
+    public static function getQuantityStatusName($id)
+    {
+        switch ($id) {
+            case 1:
+                return 'Físico atual';
+                break;    
+            case 1:
+                return 'Reservado';
+                break;
+        
+            case 1:
+                return 'Disponível';
+                break;
+        }
+    }
+    
+    public function getAvailableBalance()
+    {
+        $available = self::where('product_id', $this->product_id)
+            ->where('type', self::REAL)->first();
+        $reserved = self::where('product_id', $this->product_id)
+        ->where('type', self::RESERVED)->first();
+
+        return $available->quantity - $reserved->quantity;
+    }
+    
     /**
      * Creates default quantities in the stock for a product
      * 
@@ -23,17 +49,12 @@ class ProductQuantity extends Model
     {
         self::create([
             'product_id' => $productId,
-            'type' => self::CURRENT,
+            'type' => self::REAL,
             'quantity' => $quantity
         ]);
         self::create([
             'product_id' => $productId,
             'type' => self::RESERVED,
-            'quantity' => 0
-        ]);
-        self::create([
-            'product_id' => $productId,
-            'type' => self::AVAILABLE,
             'quantity' => 0
         ]);
     }

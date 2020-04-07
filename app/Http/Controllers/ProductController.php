@@ -18,6 +18,7 @@ class ProductController extends GridController
     public function __construct()
     {        
         $this->columns = [
+            'id' => true,
             'code' => true,
             'name' => true,
             'description' => true,

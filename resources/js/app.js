@@ -6,9 +6,6 @@ import Vue from 'vue';
 import axios from 'axios'
 import 'jquery-mask-plugin'
 
-Vue.component('vc-order', require('./components/Order.vue').default)
-
-const app = new Vue({ el: '#menu-content' })
 const dateFormat = require('dateformat');
 const items = []
 let tableColumns = []
@@ -217,3 +214,97 @@ function updateDateInfo(formated) {
     $(currentPeriod).find('.initial-date').html('De: ' + formated.initialDate);
     $(currentPeriod).find('.final-date').html('à: ' + formated.finalDate);
 }
+
+$(document).on('click', '.add-item', function () {
+    let clonedTr = $(this).closest('tr').clone();
+    let hasEmptyRows = false;
+
+    $.each($('#order-table tbody tr'), function (index, input) {
+        if ($(this).find('.product-id').val() == "") {
+            hasEmptyRows = true
+            return false;
+        }
+    })
+
+    if (hasEmptyRows) {
+        swal.fire({
+            title: 'Aviso',
+            text: 'Existem linhas vazias! Exclua ou preencha!',
+            icon: 'warning'
+        })
+        return false
+    }
+
+    $.each(clonedTr.find('input'), function (index, input) {
+        $(input).val("")
+    })
+
+    $(this).closest('tr').after(clonedTr)
+});
+
+
+$(document).on('click', '.remove-item', function () {
+    if ($('#order-table tbody tr').length == 1) {
+        swal.fire({
+            title: 'Aviso',
+            text: 'Não é possivel remover todos as linhas dos pedidos!',
+            icon: 'warning'
+        })
+    } else {
+        swal.fire({
+            title: 'Aviso',
+            text: 'Tem certeza que deseja remover esta linha?',
+            showConfirmButton: true,
+            showCancelButton: true,
+            icon: 'question',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não',
+        })
+        .then(result => {
+            if (result.value) {
+                $(this).closest('tr').remove();
+            }
+        })
+    }
+});
+
+$(document).on('keyup', '#order-items .product-search', function (e) {
+    let products = JSON.parse($('#order-table').attr('products'))
+    let searchProduct = products.find(product => {
+        let value = $(this).val().toLowerCase()
+        let productCode = product.code.toLowerCase()
+        let productDescription = product.description.toLowerCase()
+
+        if (productCode.indexOf(value) !== -1 || productDescription.indexOf(value) !== -1) {
+            return product
+        }
+    })
+
+    let tableRow = $(this).closest('tr')
+
+    if (typeof searchProduct !== "undefined") {
+        let availableBalance = searchProduct.quantity[0].quantity - searchProduct.quantity[1].quantity
+
+        tableRow.find('.product-id').val(searchProduct.id)
+        tableRow.find('.description').val(searchProduct.description)
+        tableRow.find('.balance').val(availableBalance)
+        tableRow.find('.unit').val(searchProduct.unit.name)
+    } else {
+        tableRow.find('input:not(.product-search)').val('Produto não encontrado')
+        tableRow.find('.product-id').val('')
+    }
+});
+
+$(document).on('keyup', '#order-table .quantity', function () {
+    let quantity = parseInt($(this).val())
+    let balance = parseInt($(this).closest('tr').find('.balance').val())
+
+    if (quantity > balance) {
+        swal.fire({
+            title: 'Aviso',
+            text: 'Você não pode vender mais do que existe!',
+            icon: 'warning'
+        })
+        .then(() => $(this).val(balance))
+    }
+})

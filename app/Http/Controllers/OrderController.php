@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
+use App\ProductQuantity;
 use App\ProductStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +59,7 @@ class OrderController extends GridController
     public function create()
     {
         $products = Product::has('status', ProductStatus::ACTIVE)
-            ->with('unit')
+            ->with('unit', 'quantity')
             ->get()
         ;
         $clients = Client::all();
@@ -86,10 +87,12 @@ class OrderController extends GridController
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i]
             ]);
+
+            StockController::reservationIn($request->product_id[$i], $request->quantity[$i], "Pedido de venda nª $order->id");
         }
 
         return response()->json([
-            'message' => 'Pedido criado com sucesso!',
+            'message' => "Pedido nº $order->id criado com sucesso!",
             'type' => 'success'
         ]);
     }
