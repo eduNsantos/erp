@@ -84,13 +84,20 @@ $(document).on('click', 'th[column]', function (e) {
  * Abstração para envio de formulário via post ajax
  */
 $(document).on('submit', '.ajax-form', function (e) {
-    const form = this
+    let form = $(this)
+    let submitButton = $(form).find('[type="submit"]')
+    let secondsToEnableSubmitButton = 1;
 
     e.preventDefault()
 
-    axios.post($(form).attr('action'), new FormData(form))
+    axios.post($(form).attr('action'), form.serialize())
     .then(response => {
-        swal.fire('Aviso', response.data.message, response.data.type)
+        swal.fire({
+            title: 'Aviso',
+            text: response.data.message,
+            icon: response.data.type
+        })
+        .then(() => location.reload())
     })
     .catch(error => {
         const errors = Object.values(error.response.data.errors)
@@ -105,6 +112,9 @@ $(document).on('submit', '.ajax-form', function (e) {
 
         swal.fire('Aviso', list, 'error')
     })
+    
+    submitButton.prop('disabled', true)
+    setTimeout(() => submitButton.prop('disabled', false), secondsToEnableSubmitButton * 1000)
 })
 
 /**
@@ -283,7 +293,7 @@ $(document).on('keyup', '#order-items .product-search', function (e) {
     let tableRow = $(this).closest('tr')
 
     if (typeof searchProduct !== "undefined") {
-        let availableBalance = searchProduct.quantity[0].quantity - searchProduct.quantity[1].quantity
+        let availableBalance = searchProduct.balances[0].quantity - searchProduct.balances[1].quantity
 
         tableRow.find('.product-id').val(searchProduct.id)
         tableRow.find('.description').val(searchProduct.description)

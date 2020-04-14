@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\ProductBalance;
 use App\ProductCategory;
 use App\ProductGroup;
-use App\ProductQuantity;
 use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
@@ -87,7 +87,7 @@ class ProductController extends GridController
     {
         $product = Product::create($request->all());
         
-        ProductQuantity::createDefaultProductQuantities($product->id);
+        ProductBalance::createDefaultProductQuantities($product->id);
 
         return response()->json([
             'message' => 'Produto cadastrado com sucesso!',

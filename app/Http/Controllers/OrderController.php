@@ -7,11 +7,9 @@ use App\Http\Requests\OrderRequest;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
-use App\ProductQuantity;
 use App\ProductStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class OrderController extends GridController
 {
@@ -30,6 +28,7 @@ class OrderController extends GridController
         ];
         $this->items = Order::with('client', 'user')->get();
     }
+
     /**
      * Export data to excel
      */
@@ -38,6 +37,7 @@ class OrderController extends GridController
     {
         parent::_exportToExcel('Listagem de pedidos');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +59,7 @@ class OrderController extends GridController
     public function create()
     {
         $products = Product::has('status', ProductStatus::ACTIVE)
-            ->with('unit', 'quantity')
+            ->with('unit', 'balances')
             ->get()
         ;
         $clients = Client::all();
@@ -87,8 +87,12 @@ class OrderController extends GridController
                 'product_id' => $request->product_id[$i],
                 'quantity' => $request->quantity[$i]
             ]);
-
-            StockController::reservationIn($request->product_id[$i], $request->quantity[$i], "Pedido de venda nª $order->id");
+            
+            $movement = new MovementController();
+            $movement->setProductId($request->product_id[$i]);
+            $movement->setQuantity($request->quantity[$i]);
+            $movement->setMovementReason("Pedido de venda $order->id item " . $i);
+            $movement->reservationEntry();
         }
 
         return response()->json([

@@ -43,14 +43,19 @@ class Product extends Model
         return $this->belongsTo(ProductStatus::class, 'product_status_id');
     }
 
-    public function quantity()
+    public function balances()
     {
-        return $this->hasMany(ProductQuantity::class, 'product_id', 'id');
+        return $this->hasMany(ProductBalance::class, 'product_id', 'id');
     }
 
     public function order_products()
     {
         return $this->hasMany(OrderProduct::class);
+    }
+    
+    public function movements()
+    {
+        return $this->hasMany(ProductMovement::class);
     }
 
     /**

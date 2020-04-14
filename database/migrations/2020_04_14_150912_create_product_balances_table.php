@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductQuantitiesTable extends Migration
+class CreateProductBalancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateProductQuantitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_quantities', function (Blueprint $table) {
+        Schema::create('product_balances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->tinyInteger('type');
+            $table->tinyInteger('product_balance_type_id');
             $table->integer('quantity')->default(0);
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_balance_type_id')->references('id')->on('product_balance_types');
         });
     }
 
