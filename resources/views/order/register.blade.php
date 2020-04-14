@@ -16,10 +16,9 @@
                     </select>
                 </div>
                 <div class="col">
-                    <label for="status">Status</label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="1">Ativo</option>
-                        <option value="2">Fechado</option>
+                    <label for="order_status_id">Status</label>
+                    <select name="order_status_id" id="order_status_id" class="form-control">
+                        <option value="{{ $status->id }}">{{ $status->name }}</option>
                     </select>
                 </div>
             </div>

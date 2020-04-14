@@ -5,6 +5,7 @@ return [
         'module_name' => 'Vendas',
         'order' => [
             'id' => 'Controle',
+            'status' => 'Status',
             'client' => 'Cliente',
             'item_quantity' => 'Quantidade de itens',
             'user' => 'Vendedor',

@@ -4,6 +4,7 @@
     @foreach ($items as $order)
         <tr>
             <td column="id">{{ $order->id }}</td>
+            <td column="status">{{ $order->status->name }}</td>
             <td column="client">{{ $order->client->corporate_name }}</td>
             <td column="user">{{ $order->user->name }}</td>
             <td column="quantity">{{ $order->products()->count() }}</td>
@@ -44,6 +45,11 @@
                             title: 'Aviso',
                             text: response.data.message,
                             icon: 'success'
+                        })).
+                        catch(() => swal.fire({
+                            title: 'Aviso',
+                            text: 'Erro ao cancelar pedido. Por favor, entre em contato com o desenvolvimento.',
+                            icon: 'warning'
                         }))
                     }
                 })

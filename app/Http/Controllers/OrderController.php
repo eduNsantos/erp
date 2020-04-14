@@ -6,6 +6,7 @@ use App\Client;
 use App\Http\Requests\OrderRequest;
 use App\Order;
 use App\OrderProduct;
+use App\OrderStatus;
 use App\Product;
 use App\ProductStatus;
 use Illuminate\Http\Request;
@@ -14,20 +15,6 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends GridController
 {
     const TRANSLATION_PREFIX = 'sales.order';
-
-    public function __construct()
-    {
-        $this->columns = [
-            'id' => true,
-            'client' => 'corporate_name',
-            'user' => 'name',
-            'item_quantity' => true,
-            'total_price' => true,
-            'created_at' => true,
-            'updated_at' => true
-        ];
-        $this->items = Order::with('client', 'user')->get();
-    }
 
     /**
      * Export data to excel
@@ -45,6 +32,18 @@ class OrderController extends GridController
      */
     public function index()
     {
+        $this->columns = [
+            'id' => true,
+            'status' => 'name',
+            'client' => 'corporate_name',
+            'user' => 'name',
+            'item_quantity' => true,
+            'total_price' => true,
+            'created_at' => true,
+            'updated_at' => true
+        ];
+        $this->items = Order::with('client', 'user', 'status')->get();
+
         return view('order.list', [
             'items' => $this->items,
             'columns' => $this->columns
@@ -62,9 +61,10 @@ class OrderController extends GridController
             ->with('unit', 'balances')
             ->get()
         ;
+        $status = OrderStatus::find(1);
         $clients = Client::all();
 
-        return view('order.register', compact('products', 'clients'));
+        return view('order.register', compact('products', 'clients', 'status'));
     }
 
     /**
@@ -78,7 +78,7 @@ class OrderController extends GridController
         $order = Order::create([ 
             'client_id' => $request->client_id,
             'user_id' => Auth::id(),
-            'status' => $request->status
+            'order_status_id' => $request->order_status_id
         ]);
 
         for ($i = 0; $i < count($request->product_id); $i++ ) {
@@ -155,7 +155,7 @@ class OrderController extends GridController
         }
 
         return response()->json([
-            'message' => 'Pedido ' . $order->id  . ' cancelado com sucesso!'
+            'message' => 'Pedido nº ' . $order->id  . ' cancelado com sucesso!'
         ], 200);
     }
 }

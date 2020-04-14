@@ -8,15 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
-    const ACTIVE = 1;
+    const IN_ANALYSIS = 1;
     const CLOSED = 2;
     const CANCELED = 3;
 
     protected $fillable = [
         'user_id',
         'client_id',
-        'status',
+        'order_status_id',
     ];
+
+    public function status()
+    {
+        return $this->hasOne(OrderStatus::class, 'id', 'order_status_id');
+    }
 
     public function products()
     {

@@ -15,8 +15,22 @@ use Illuminate\Http\Request;
 class ProductController extends GridController
 {
     const TRANSLATION_PREFIX = "stock";
-    public function __construct()
-    {        
+
+    /**
+     * Method to export data to excel
+     */
+    public function exportToExcel()
+    {
+        return parent::_exportToExcel('Listagem de produtos');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
         $this->columns = [
             'id' => true,
             'code' => true,
@@ -38,27 +52,11 @@ class ProductController extends GridController
             'group',
             'status'
         ])->get();
-    }
 
-    /**
-     * Method to export data to excel
-     */
-    public function exportToExcel()
-    {
-        return parent::_exportToExcel('Listagem de produtos');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $columns = $this->columns;
-        $items = $this->items;
-
-        return view('list', compact('columns', 'items'));
+        return view('list', [
+            'columns' => $this->columns,
+            'items' => $this->items
+        ]);
     }
 
     /**
