@@ -78,77 +78,83 @@
     <div>
         <div class="container-fluid">
             <div class="table-responsive table-list">
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            @isset($multiSelect)
-                                <th>Selec.</th>
-                            @endisset
-                            @foreach ($columns as $column => $relationField)
-                                <th 
-                                    class="column-{{ $column }}"
-                                    draggable="true"
-                                    ondrag="onDragStart(event)"
-                                    ondragover="dragOver(event)"
-                                    ondragend="removePlacingArrow(event)"
-                                    style="white-space: nowrap; cursor: pointer"
-                                    column="{{ $column }}">
-                                    {{ trans("messages.$translationPrefix.$column") }}
-                                    <span class="order-icon"></span>
-                                </th>                      
-                            @endforeach
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($items as $item)
-                            <tr>
-                                @isset($multiSelect)
-                                    <td>
-                                        <div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="{{ $loop->index }}">
-                                                <label class="custom-control-label" for="{{ $loop->index }}"></label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                @endisset
-                                @foreach ($columns as $column  => $relationField)
-                                    @php 
-                                        $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
-                                    @endphp
-                                    @if (strpos($column, '_at'))
-                                        <td class="column-{{ $column }}" column="{{ $column }}">
-                                            {{ date('d/m/Y H:i:s', strtotime($cell)) }}
-                                        </td>
-                                    @else
-                                        <td class="column-{{ $column }}" column="{{ $column }}">
-                                            @if ($cell)
-                                                {{ $cell }}  
+                @section('table')
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            @section('thead')
+                                <tr>
+                                    @isset($multiSelect)
+                                        <th>Selec.</th>
+                                    @endisset
+                                    @foreach ($columns as $column => $relationField)
+                                        <th 
+                                            class="column-{{ $column }}"
+                                            draggable="true"
+                                            ondrag="onDragStart(event)"
+                                            ondragover="dragOver(event)"
+                                            ondragend="removePlacingArrow(event)"
+                                            style="white-space: nowrap; cursor: pointer"
+                                            column="{{ $column }}">
+                                            {{ trans("messages.$translationPrefix.$column") }}
+                                            <span class="order-icon"></span>
+                                        </th>                      
+                                    @endforeach
+                                    <th>Ações</th>
+                                </tr>
+                            @show
+                        </thead>
+                        <tbody>
+                            @section('tbody')
+                                @forelse ($items as $item)
+                                    <tr>
+                                        @isset($multiSelect)
+                                            <td>
+                                                <div>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="{{ $loop->index }}">
+                                                        <label class="custom-control-label" for="{{ $loop->index }}"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @endisset
+                                        @foreach ($columns as $column  => $relationField)
+                                            @php 
+                                                $cell = $relationField === true ? $item->{$column} : $item->{$column}->{$relationField}
+                                            @endphp
+                                            @if (strpos($column, '_at'))
+                                                <td class="column-{{ $column }}" column="{{ $column }}">
+                                                    {{ date('d/m/Y H:i:s', strtotime($cell)) }}
+                                                </td>
                                             @else
-                                                {!! '<span 
-                                                        class="text-danger"
-                                                        data-toggle="tooltip"
-                                                        title="Não informado no cadastro">
-                                                        Não definido
-                                                    </span>' !!}
+                                                <td class="column-{{ $column }}" column="{{ $column }}">
+                                                    @if ($cell)
+                                                        {{ $cell }}  
+                                                    @else
+                                                        {!! '<span 
+                                                                class="text-danger"
+                                                                data-toggle="tooltip"
+                                                                title="Não informado no cadastro">
+                                                                Não definido
+                                                            </span>' !!}
+                                                    @endif
+                                                </td>
                                             @endif
+                                        @endforeach
+                                        <td>
+                                            <button class="btn btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                         </td>
-                                    @endif
-                                @endforeach
-                                <td>
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        @empty 
-                            <tr>
-                                <td colspan="{{ count($columns) + 1 }}" class="text-center">Nada encontrado.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                                    </tr>
+                                @empty 
+                                    <tr>
+                                        <td colspan="{{ count($columns) + 1 }}" class="text-center">Nada encontrado.</td>
+                                    </tr>
+                                @endforelse
+                            @show
+                        </tbody>
+                    </table>
+                @show
             </div>
         </div>
         <script>

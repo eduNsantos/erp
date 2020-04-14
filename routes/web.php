@@ -11,6 +11,7 @@
 */
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrderController;
 use App\Module;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ Route::group(['prefix' => '/sales'], function () {
     Route::get('/client/exportToExcel', 'ClientController@exportToExcel');
     Route::resource('/client', 'ClientController');
     Route::get('/order/exportToExcel', 'OrderController@exportToExcel');
+    Route::put('/order/cancel', 'OrderController@cancel');
     Route::resource('/order', 'OrderController');
 });
 

@@ -18,7 +18,7 @@ class Order extends Model
         'status',
     ];
 
-    public function order_products()
+    public function products()
     {
         return $this->hasMany(OrderProduct::class);
     }
@@ -31,15 +31,6 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getItemQuantityAttribute()
-    {
-        $orderProduct = OrderProduct::where('order_id', $this->id)
-            ->sum('quantity')
-        ;
-
-        return $orderProduct;
     }
 
     public function getTotalPriceAttribute()

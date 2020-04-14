@@ -45,7 +45,7 @@ class OrderController extends GridController
      */
     public function index()
     {
-        return view('list', [
+        return view('order.list', [
             'items' => $this->items,
             'columns' => $this->columns
         ]);
@@ -141,8 +141,21 @@ class OrderController extends GridController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function cancel(Request $request)
     {
-        //
+        $order = Order::where('id', $request->id)->with('products')->first();
+        $order->status = Order::CANCELED;
+
+        foreach ($order->products as $product) {
+            $movement = new MovementController();
+            $movement->setProductId($product->id);
+            $movement->setQuantity($product->quantity);
+            $movement->setMovementReason('Cancelamento do pedido nº ' . $order->id);
+            $movement->reservationWithdrawal();
+        }
+
+        return response()->json([
+            'message' => 'Pedido ' . $order->id  . ' cancelado com sucesso!'
+        ], 200);
     }
 }
