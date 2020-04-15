@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends GridController
 {
-    const TRANSLATION_PREFIX = "stock";
+    const TRANSLATION_PREFIX = "stock.product";
 
     /**
      * Method to export data to excel
@@ -42,6 +42,9 @@ class ProductController extends GridController
             'brand' => 'initials',
             'group' => 'name',
             'status' => 'name',
+            'physical_balance' => true,
+            'reserved_balance' => true,
+            'available_balance' => true,
             'created_at' => true,
             'updated_at' => true
         ];

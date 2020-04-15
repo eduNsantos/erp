@@ -68,3 +68,7 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.table th, td {
+    white-space: nowrap;
+}

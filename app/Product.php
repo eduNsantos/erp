@@ -65,4 +65,27 @@ class Product extends Model
     {
         return 'R$ ' . number_format(self::find($this->id)->price, 2, ',', '.');
     }
+
+    public function getPhysicalBalanceAttribute()
+    {
+        return ProductBalance::where('product_balance_type_id', ProductBalanceType::PHYSICAL)
+            ->where('product_id', $this->id)
+            ->first()
+            ->quantity
+        ;
+    }
+
+    public function getReservedBalanceAttribute()
+    {
+        return ProductBalance::where('product_balance_type_id', ProductBalanceType::RESERVED)
+            ->where('product_id', $this->id)
+            ->first()
+            ->quantity
+        ;
+    }
+
+    public function getAvailableBalanceAttribute()
+    {
+        return $this->getPhysicalBalanceAttribute() - $this->getReservedBalanceAttribute();
+    }
 }

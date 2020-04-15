@@ -79,7 +79,7 @@
         <div class="container-fluid">
             <div class="table-responsive table-list">
                 @section('table')
-                    <table class="table table-hover table-striped">
+                    <table class="table table-bordered table-hover table-striped">
                         <thead>
                             @section('thead')
                                 <tr>
@@ -93,7 +93,6 @@
                                             ondrag="onDragStart(event)"
                                             ondragover="dragOver(event)"
                                             ondragend="removePlacingArrow(event)"
-                                            style="white-space: nowrap; cursor: pointer"
                                             column="{{ $column }}">
                                             {{ trans("messages.$translationPrefix.$column") }}
                                             <span class="order-icon"></span>
@@ -127,7 +126,9 @@
                                                 </td>
                                             @else
                                                 <td class="column-{{ $column }}" column="{{ $column }}">
-                                                    @if ($cell)
+                                                    
+                                                    {{ $cell }}  
+                                                    {{-- @if (!empty($cell))
                                                         {{ $cell }}  
                                                     @else
                                                         {!! '<span 
@@ -136,7 +137,7 @@
                                                                 title="Não informado no cadastro">
                                                                 Não definido
                                                             </span>' !!}
-                                                    @endif
+                                                    @endif --}}
                                                 </td>
                                             @endif
                                         @endforeach
