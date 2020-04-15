@@ -27,6 +27,7 @@ Route::group(['prefix' => '/sales'], function () {
     Route::resource('/client', 'ClientController');
     Route::get('/order/exportToExcel', 'OrderController@exportToExcel');
     Route::put('/order/cancel', 'OrderController@cancel');
+    Route::put('/order/activate', 'OrderController@activate');
     Route::resource('/order', 'OrderController');
 });
 

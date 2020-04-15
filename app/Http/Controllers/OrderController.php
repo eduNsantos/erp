@@ -11,6 +11,7 @@ use App\Product;
 use App\ProductStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends GridController
 {
@@ -91,7 +92,7 @@ class OrderController extends GridController
             $movement = new MovementController();
             $movement->setProductId($request->product_id[$i]);
             $movement->setQuantity($request->quantity[$i]);
-            $movement->setMovementReason("Pedido de venda $order->id item " . $i);
+            $movement->setMovementReason("Pedido de venda " . $order->id . " item " . ($i + 1));
             $movement->reservationEntry();
         }
 
@@ -136,26 +137,75 @@ class OrderController extends GridController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Cancel order
      *
-     * @param  int  $id
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     public function cancel(Request $request)
     {
-        $order = Order::where('id', $request->id)->with('products')->first();
-        $order->status = Order::CANCELED;
+        $order = Order::where('id', $request->id)->with('order_products')->first();
 
-        foreach ($order->products as $product) {
+        $validation = Validator::make($order->toArray(), [
+            'order_status_id' => 'in:'.Order::IN_ANALYSIS
+        ], [
+            'order_status_id.in' => 'O pedido já está cancelado!'
+        ])->validate();
+
+        $order->order_status_id = Order::CANCELED;
+        $order->save();
+        
+        $i = 1;
+        foreach ($order->order_products as $product) {
+            $movement = new MovementController();
+            $movement->setProductId($product->product_id);
+            $movement->setQuantity($product->quantity);
+            $movement->setMovementReason('Cancelamento do pedido nº ' . $order->id . ' item ' . $i);
+            $movement->reservationWithdrawal();
+            $i++;
+        }
+        return response()->json([
+            'message' => 'Pedido nº ' . $order->id  . ' cancelado com sucesso!',
+            'row' => view('order.row', [
+                'order' => Order::find($request->id)->with('user', 'client', 'status')->first()
+            ])->render()
+        ], 200);
+    }
+
+    /**
+     * Activate order
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function activate(Request $request)
+    {
+        $order = Order::where('id', $request->id)->with('order_products', 'status', 'client', 'user')->first();
+
+        $validation = Validator::make($order->toArray(), [
+            'order_status_id' => 'in:'.Order::CANCELED
+        ], [
+            'order_status_id.in' => 'Só é possível ativar um pedido cancelado!'
+        ])->validate();
+
+        $order->order_status_id = Order::IN_ANALYSIS;
+        $order->save();
+
+        $i = 1;
+        foreach ($order->order_products as $product) {
             $movement = new MovementController();
             $movement->setProductId($product->id);
             $movement->setQuantity($product->quantity);
-            $movement->setMovementReason('Cancelamento do pedido nº ' . $order->id);
-            $movement->reservationWithdrawal();
+            $movement->setMovementReason('Ativação do pedido nº ' . $order->id . ' item ' . $i);
+            $movement->reservationEntry();
+            $i++;
         }
-
+        
         return response()->json([
-            'message' => 'Pedido nº ' . $order->id  . ' cancelado com sucesso!'
+            'message' => 'Pedido nº ' . $order->id  . ' ativado com sucesso!',
+            'row' => view('order.row', [
+                'order' => Order::find($request->id)->with('user', 'client', 'status')->first()
+            ])->render(),
         ], 200);
     }
 }

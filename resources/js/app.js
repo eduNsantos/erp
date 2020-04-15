@@ -100,17 +100,7 @@ $(document).on('submit', '.ajax-form', function (e) {
         .then(() => location.reload())
     })
     .catch(error => {
-        const errors = Object.values(error.response.data.errors)
-        const list = document.createElement('ul')
-
-        for (let error of errors) {
-            let item = document.createElement('li')
-            item.textContent = error
-            
-            list.appendChild(item)
-        }
-
-        swal.fire('Aviso', list, 'error')
+        showErrorsOnSweetalert(error)
     })
     
     submitButton.prop('disabled', true)
@@ -318,3 +308,79 @@ $(document).on('keyup', '#order-table .quantity', function () {
         .then(() => $(this).val(balance))
     }
 })
+
+$(document).on('click', '.order-cancel', function () {
+    let id = $(this).closest('tr').find('[column="id"]').text()
+
+    swal.fire({
+        title: 'Aviso',
+        html: 'Deseja realmente <b>cancelar</b> esse pedido?',
+        icon: 'question',
+        showConfirmButton: true,
+        confirmButtonText: 'Sim',
+        showCancelButton: true,
+        cancelButtonText: 'Não',
+    })
+    .then(result => {
+        if (result.value) {
+            axios.put('./order/cancel', { id })
+            .then(response => {
+                swal.fire({
+                    title: 'Aviso',
+                    text: response.data.message,
+                    icon: 'success'
+                })
+                $(this).closest('tr').after(response.data.row)
+                $(this).closest('tr').remove()
+            })
+            .catch(error => {
+                showErrorsOnSweetalert(error)
+            })
+        }
+    })
+})
+
+$(document).on('click', '.order-activate', function () {
+    let id = $(this).closest('tr').find('[column="id"]').text()
+    
+    swal.fire({
+        title: 'Aviso',
+        html: 'Deseja realmente <b>ativar</b> esse pedido?',
+        icon: 'question',
+        showConfirmButton: true,
+        confirmButtonText: 'Sim',
+        showCancelButton: true,
+        cancelButtonText: 'Não',
+    })
+    .then(result => {
+        if (result.value) {
+            axios.put('./order/activate', { id })
+            .then(response => {
+                swal.fire({
+                    title: 'Aviso',
+                    text: response.data.message,
+                    icon: 'success'
+                })
+                $(this).closest('tr').after(response.data.row)
+                $(this).closest('tr').remove()
+            })
+            .catch(error => {
+                showErrorsOnSweetalert(error)
+            })
+        }
+    })
+})
+
+function showErrorsOnSweetalert (error) {
+    const errors = Object.values(error.response.data.errors)
+    const list = document.createElement('ul')
+
+    for (let error of errors) {
+        let item = document.createElement('li')
+        item.textContent = error
+        
+        list.appendChild(item)
+    }
+
+    swal.fire('Aviso', list, 'error')
+}
