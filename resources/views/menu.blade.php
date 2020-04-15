@@ -4,7 +4,7 @@
     <div class="row h-100 px-0 mx-0">
         <div class="h-100 navbar navbar-light bg-light shadow align-content-start d-none d-md-inline-block col-md-2 px-0 py-0" id="sidebar">
             <ul class="navbar-nav w-100">
-                @foreach (App\ModuleMenu::getMenus() as $menu)
+                @foreach ($menus as $menu)
                     <li class="nav-item border px-3">
                         <div class="row align-items-center">
                             <div class="col-lg-2 col-md-6 mx-md-auto d-md-none d-lg-block">

@@ -10,6 +10,8 @@
 |
 */
 
+use App\Http\Middleware\Modules\Sales;
+use App\Http\Middleware\Modules\Stock;
 use App\Module;
 use Illuminate\Http\Request;
 
@@ -20,8 +22,10 @@ Route::middleware('auth')->group(function () {
         return view('modules', compact('modules'));
     })->name('modules');
     
-    Route::group(['prefix' => '/sales'], function () {
-        Route::get('/', 'RouteController@sales')->name('sales.index');
+    Route::group(['prefix' => '/sales', 'middleware' => Sales::class], function () {
+        Route::get('/', function () { 
+            return view('menu');
+        })->name('sales.index');
         Route::get('/client/exportToExcel', 'ClientController@exportToExcel');
         Route::resource('/client', 'ClientController');
         Route::get('/order/exportToExcel', 'OrderController@exportToExcel');
@@ -30,8 +34,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('/order', 'OrderController');
     });
     
-    Route::group(['prefix' => '/stock'], function () {
-        Route::get('/', 'RouteController@stock')->name('stock.index');
+    Route::group(['prefix' => '/stock', 'middleware' => Stock::class], function () {
+        Route::get('/', function () { 
+            return view('menu');
+        })->name('stock.index');
         Route::get('/product/exportToExcel', 'ProductController@exportToExcel');
         Route::resource('/product', 'ProductController');
         Route::get('/product-unit/exportToExcel', 'UnitController@exportToExcel');

@@ -11,18 +11,8 @@ class Module extends Model
     const GENERAL_REGISTRATION = 3;
     
     protected $fillable = [
-        'sales',
-        'stock',
-        'general-registration',
+        'name',
+        'icon',
+        'route'
     ];
-
-    public static function getCurrentModule (): int
-    {
-        return session('current_module_id');
-    }
-
-    public static function setCurrentModule (int $moduleId)
-    {
-        return session(['current_module_id' => $moduleId]);
-    }
 }
