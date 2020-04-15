@@ -16,7 +16,7 @@ class CreateProductBalancesTable extends Migration
         Schema::create('product_balances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->tinyInteger('product_balance_type_id');
+            $table->unsignedBigInteger('product_balance_type_id');
             $table->integer('quantity')->default(0);
             $table->timestamps();
 
