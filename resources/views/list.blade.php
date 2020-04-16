@@ -98,7 +98,9 @@
                                             <span class="order-icon"></span>
                                         </th>                      
                                     @endforeach
-                                    <th>Ações</th>
+                                    @section('tbody-actions')
+                                        <th>Ações</th>
+                                    @show
                                 </tr>
                             @show
                         </thead>

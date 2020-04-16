@@ -15,6 +15,6 @@ class ProductMovement extends Model
 
     public function type()
     {
-        return $this->hasOne(ProductMovementType::class);
+        return $this->belongsTo(ProductMovementType::class, 'product_movement_type_id', 'id');
     }
 }

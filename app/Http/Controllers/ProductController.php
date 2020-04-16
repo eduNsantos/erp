@@ -8,6 +8,7 @@ use App\Product;
 use App\ProductBalance;
 use App\ProductCategory;
 use App\ProductGroup;
+use App\ProductMovement;
 use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
@@ -139,5 +140,29 @@ class ProductController extends GridController
     public function destroy($id)
     {
         //
+    }
+
+    public function movements($productId = null)
+    {
+        $productMovement = ProductMovement::with('type', 'product');
+
+        if (isset($productId)) {
+            $productMovement = $productMovement::where('product_id', $productId);
+        }
+
+        return view('product.movements', [
+            'columns' => [
+                'id' => true,
+                'code' => true,
+                'name' => true,
+                'description' => true,
+                'type' => true,
+                'quantity' => true,
+                'reason' => true,
+                'created_at' => true,
+                'updated_at' => true,
+            ],
+            'items' => $productMovement->get()
+        ]);
     }
 }

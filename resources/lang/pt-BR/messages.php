@@ -33,6 +33,9 @@ return [
             'available_balance' => 'Saldo disponível',
             'created_at' => 'Data de cadastro',
             'updated_at' => 'Última alteração',
+            'type' => 'Tipo mov.',
+            'quantity' => 'Quantidade',
+            'reason' => 'Motivo'
         ],
         'product-unit' => [
             'id' => 'Código',

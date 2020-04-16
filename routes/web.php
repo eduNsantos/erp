@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
             return view('menu');
         })->name('stock.index');
         Route::get('/product/exportToExcel', 'ProductController@exportToExcel');
+        Route::get('/product/movement/{productId?}', 'ProductController@movements')->name('product.movements');
         Route::resource('/product', 'ProductController');
         Route::get('/product-unit/exportToExcel', 'UnitController@exportToExcel');
         Route::resource('/product-unit', 'UnitController');

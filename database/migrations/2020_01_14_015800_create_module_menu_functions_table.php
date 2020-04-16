@@ -61,7 +61,7 @@ class CreateModuleMenuFunctionsTable extends Migration
                 'module_menu_id' => ModuleMenu::STOCK_CONSULT,
                 'name' => 'Movimentação de estoque por produto',
                 'icon' => 'fas fa-search',
-                'route' => 'product.index'
+                'route' => 'product.movements'
             ],
             [
                 'module_menu_id' => ModuleMenu::SALES_CLIENT,
