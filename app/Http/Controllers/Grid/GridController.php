@@ -12,6 +12,18 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class GridController extends Controller
 {
     protected $buttons = [];
+    protected $items = [];
+    protected $columns = [];
+    
+    public function __construct()
+    {
+        view()->share([
+            'items' => $this->items,
+            'columns' => $this->columns,
+            'buttons' => $this->buttons,
+        ]);
+    }
+
     /**
      * Export data to xlsx file
      * 
