@@ -6,6 +6,7 @@ use App\Http\Controllers\Grid\Components\ExportExcel;
 use App\Http\Controllers\Grid\Components\NewModel;
 use App\Http\Controllers\Grid\GridController;
 use App\Unit;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UnitController extends GridController
@@ -64,12 +65,16 @@ class UnitController extends GridController
     public function store(Request $request)
     {
         $request->validate([
-            '*' => 'required'
+            'name' => 'required|max:30',
+            'initials' => 'required|max:2'
         ]);
 
         $unit = Unit::create($request->all());
 
-        return back()->with('unit', $unit);
+        return new JsonResponse([
+            'message' => 'Unidade de medida ' . $unit->id . ' cadastrada com sucesso!',
+            'type' => 'success'
+        ]);
     }
 
     /**
