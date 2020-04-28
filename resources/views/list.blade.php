@@ -32,15 +32,17 @@
                         @endforeach
                     </div>
                 </div>
-                @foreach ($buttons as $button)
-                    <a 
-                        href="{{ $button->getRoute() }}"
-                        {{ $button->getHasTooltip() ? 'data-toggle=tooltip' : "" }}
-                        title="{{  $button->getHasTooltip() ? $button->getTooltip() : ""  }}"
-                        class="{{ $button->getClasses() }} {{ $button->getUsesModal() ? 'uses-modal' : '' }}">
-                            <i class="{{ $button->getIcon() }}"></i>
+                @isset($buttons)
+                    @foreach ($buttons as $button)
+                        <a 
+                            href="{{ $button->getRoute() }}"
+                            {{ $button->getHasTooltip() ? 'data-toggle=tooltip' : "" }}
+                            title="{{  $button->getHasTooltip() ? $button->getTooltip() : ""  }}"
+                            class="{{ $button->getClasses() }} {{ $button->getUsesModal() ? 'uses-modal' : '' }}">
+                                <i class="{{ $button->getIcon() }}"></i>
                         </a>
-                @endforeach
+                    @endforeach
+                @endisset
             </div>
         </div>
         <div id="filter" class="mb-3 d-none" aria-expanded="false">
@@ -115,6 +117,10 @@
                                             @if (strpos($column, '_at'))
                                                 <td class="column-{{ $column }}" column="{{ $column }}">
                                                     {{ date('d/m/Y H:i:s', strtotime($cell)) }}
+                                                </td>
+                                            @elseif (substr($column, 0, 3) == "is_")
+                                                <td class="column-{{ $column }}" column="{{ $column }}">
+                                                    {{ $cell ? 'Sim' : 'Não' }}
                                                 </td>
                                             @else
                                                 <td class="column-{{ $column }}" column="{{ $column }}">

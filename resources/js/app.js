@@ -107,6 +107,9 @@ $(document).on('submit', '.ajax-form', function (e) {
     setTimeout(() => submitButton.prop('disabled', false), secondsToEnableSubmitButton * 1000)
 })
 
+$(document).on('click', '.btn-close-modal', function() {
+    $('.modal').modal('hide')
+});
 /**
  * Exporta para o excel
  */

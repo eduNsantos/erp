@@ -59,9 +59,9 @@ class CreateModuleMenuFunctionsTable extends Migration
             ],
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
-                'name' => 'Marca de produto de produto',
-                'icon' => 'fas fa-folder',
-                'route' => 'product.index'
+                'name' => 'Marca de produto',
+                'icon' => 'fas fa-copyright',
+                'route' => 'brand.index'
             ],
             [
                 'module_menu_id' => ModuleMenu::STOCK_CONSULT,

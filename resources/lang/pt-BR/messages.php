@@ -35,7 +35,14 @@ return [
             'updated_at' => 'Última alteração',
             'type' => 'Tipo mov.',
             'quantity' => 'Quantidade',
-            'reason' => 'Motivo'
+            'reason' => 'Motivo',
+            'brand' => [
+                'id' => 'Código',
+                'name' => 'Nome',
+                'initials' => 'Iniciais',
+                'is_active' => 'Ativo',
+                'countProducts' => 'Produtos'
+            ]
         ],
         'product-unit' => [
             'id' => 'Código',
