@@ -119,6 +119,10 @@
                         <label for="is_package">Embalagem</label>
                         <input type="checkbox" name="is_package" id="is_package" value="1">
                     </div>
+                    <div class="form-group col-2">
+                        <label for="is_fixed_asset">Ativo fixo</label>
+                        <input type="checkbox" name="is_fixed_asset" id="is_fixed_asset" value="1">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-3">
@@ -161,6 +165,7 @@
                 $('[name*="is_feedstock"]').prop('checked', product.is_feedstock)
                 $('[name*="is_finished_product"]').prop('checked', product.is_finished_product)
                 $('[name*="is_package"]').prop('checked', product.is_package)
+                $('[name*="is_fixed_asset"]').prop('checked', product.is_fixed_asset)
                 $('[name*="expiration_days"]').val(product.expiration_days)
             })
         </script>

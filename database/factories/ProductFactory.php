@@ -18,6 +18,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'product_group_id' => $faker->numberBetween(1,2),
         'product_status_id' => $faker->numberBetween(1,5),
         'original_product_id' => $faker->numberBetween(1, 50),
+        'is_fixed_asset' => $faker->boolean,
         'is_generic' => $faker->boolean,
         'is_feedstock' => $faker->boolean,
         'is_finished_product' => $faker->boolean,

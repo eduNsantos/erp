@@ -46,6 +46,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/brand/exportToExcel', 'BrandController@exportToExcel');
         Route::resource('/brand', 'BrandController');
+
+        Route::get('/product-category/exportToExcel', 'ProductCategoryController@exportToExcel');
+        Route::resource('/product-category', 'ProductCategoryController');
+        
+        Route::get('/product-group/exportToExcel', 'ProductGroupController@exportToExcel');
+        Route::resource('/product-group', 'ProductGroupController');
     });
     
     Route::group(['prefix' => '/general-registration'], function () {

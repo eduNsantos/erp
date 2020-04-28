@@ -35,14 +35,24 @@ return [
             'updated_at' => 'Última alteração',
             'type' => 'Tipo mov.',
             'quantity' => 'Quantidade',
-            'reason' => 'Motivo',
-            'brand' => [
-                'id' => 'Código',
-                'name' => 'Nome',
-                'initials' => 'Iniciais',
-                'is_active' => 'Ativo',
-                'countProducts' => 'Produtos'
-            ]
+            'reason' => 'Motivo'
+        ],
+        'product-category' => [
+            'id' => 'Código',
+            'name' => 'Nome',
+            'countProducts' => 'Cont. produtos'
+        ],
+        'product-brand' => [
+            'id' => 'Código',
+            'name' => 'Nome',
+            'initials' => 'Iniciais',
+            'is_active' => 'Ativo',
+            'countProducts' => 'Cont. produtos'
+        ],
+        'product-group' => [
+            'id' => 'Código',
+            'name' => 'Nome',
+            'countProducts' => 'Cont. produtos'
         ],
         'product-unit' => [
             'id' => 'Código',

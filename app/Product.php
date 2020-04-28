@@ -11,6 +11,7 @@ class Product extends Model
         'name',
         'description',
         'multiple',
+        'is_fixed_asset',
         'unit_id',
         'brand_id',
         'product_category_id',

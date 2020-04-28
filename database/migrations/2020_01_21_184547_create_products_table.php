@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('description', 120);
             $table->decimal('multiple');
             $table->decimal('price')->default(0);
+            $table->boolean('is_fixed_asset')->nullable();
             $table->boolean('is_generic')->nullable();
             $table->boolean('is_feedstock')->nullable();
             $table->boolean('is_finished_product')->nullable();

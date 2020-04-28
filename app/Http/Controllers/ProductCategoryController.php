@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
+use App\Http\Controllers\Grid\Components\ExportExcel;
 use App\Http\Controllers\Grid\Components\NewModel;
 use App\Http\Controllers\Grid\GridController;
+use App\ProductCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class BrandController extends GridController
+class ProductCategoryController extends GridController
 {
-    const TRANSLATION_PREFIX = 'stock.product-brand';
+    const TRANSLATION_PREFIX = 'stock.product-category';
 
     public function __construct()
     {
-        $this->items = Brand::all();
         $this->columns = [
             'id' => true,
             'name' => true,
-            'initials' => true,
-            'is_active' => true,
             'countProducts' => true,
         ];
-        $this->addButton(new NewModel('brand.create'));
+        $this->items = ProductCategory::all();
+
+        $this->addButton(new ExportExcel('product-category.exportToExcel'));
+        $this->addButton(new NewModel('product-category.create'));
+
         parent::__construct();
     }
     /**
@@ -41,7 +44,7 @@ class BrandController extends GridController
      */
     public function create()
     {
-        return view('product.brand.register-brand');
+        return view('product.category.register-category');
     }
 
     /**
@@ -53,14 +56,13 @@ class BrandController extends GridController
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:30|unique:brands,name',
-            'initials' => 'required|max:7|unique:brands,initials'
+            'name' => 'required|max:30'
         ]);
 
-        $brand = Brand::create($request->all());
+        $productCategory = ProductCategory::create($request->all());
 
-        return response()->json([
-            'message' => 'Marca de produto '. $brand->id . ' cadastrado com sucesso!',
+        return new JsonResponse([
+            'message' => "Categoria $productCategory->id criada com sucesso!",
             'type' => 'success'
         ]);
     }

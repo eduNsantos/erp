@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use App\Http\Controllers\Grid\Components\ExportExcel;
+use App\Http\Controllers\Grid\Components\ListButton;
 use App\Http\Controllers\Grid\Components\NewModel;
 use App\Http\Controllers\Grid\GridController;
 use App\Http\Requests\ProductRequest;
@@ -21,28 +22,6 @@ class ProductController extends GridController
     const TRANSLATION_PREFIX = "stock.product";
 
     public function __construct()
-    {
-        $newModel = new NewModel('product.create', 'Adicionar novo produto');
-        $newModel->setUsesModal(false);
-
-        $this->addButton(new ExportExcel('product.exportToExcel'));
-        $this->addButton($newModel);
-    }
-
-    /**
-     * Method to export data to excel
-     */
-    public function exportToExcel()
-    {
-        return parent::_exportToExcel('Listagem de produtos');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
     {
         $this->columns = [
             'id' => true,
@@ -62,18 +41,41 @@ class ProductController extends GridController
             'updated_at' => true
         ];
         $this->items = Product::with([
-            'unit',
-            'brand',
-            'category',
-            'group',
-            'status'
-        ])->get();
+                'unit',
+                'brand',
+                'category',
+                'group',
+                'status'
+            ])
+            ->limit(2)
+            ->get()
+        ;
 
-        return view('list', [
-            'columns' => $this->columns,
-            'items' => $this->items,
-            'buttons' => $this->buttons
-        ]);
+        $newModel = new NewModel('product.create', 'Adicionar novo produto');
+        $newModel->setUsesModal(false);
+
+        $this->addButton(new ExportExcel('product.exportToExcel'));
+        $this->addButton($newModel);
+
+        parent::__construct();
+    }
+
+    /**
+     * Method to export data to excel
+     */
+    public function exportToExcel()
+    {
+        return parent::_exportToExcel('Listagem de produtos');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('list');
     }
 
     /**

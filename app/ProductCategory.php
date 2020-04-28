@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategory extends Model
 {
-    //
+    protected $fillable = ['name'];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function getCountProductsAttribute()
+    {
+        return self::products()->count();
+    }
 }

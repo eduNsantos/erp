@@ -4,7 +4,7 @@
 @endphp
 
 @extends('menu')
-
+    
 @section('menu-content')
     <div class="container-fluid mb-3">
         <div class="d-flex align-items-center">

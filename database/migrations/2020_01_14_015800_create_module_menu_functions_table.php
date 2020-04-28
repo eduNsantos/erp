@@ -42,20 +42,20 @@ class CreateModuleMenuFunctionsTable extends Migration
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
                 'name' => 'Unidade de medida',
-                'icon' => 'fas fa-folder',
+                'icon' => 'fas fa-balance-scale',
                 'route' => 'product-unit.index'
             ],
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
                 'name' => 'Categoria de produto',
-                'icon' => 'fas fa-folder',
-                'route' => 'product.index'
+                'icon' => 'fab fa-buffer',
+                'route' => 'product-category.index'
             ],
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
                 'name' => 'Grupo de produto',
-                'icon' => 'fas fa-folder',
-                'route' => 'product.index'
+                'icon' => 'fas fa-object-group',
+                'route' => 'product-group.index'
             ],
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
