@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Grid\Components\ExportExcel;
+use App\Http\Controllers\Grid\Components\NewModel;
+use App\Http\Controllers\Grid\GridController;
 use App\Unit;
 use Illuminate\Http\Request;
 
 class UnitController extends GridController
 {
     const TRANSLATION_PREFIX = 'stock.product-unit';
+
     public function __construct()
     {
         $this->columns = [
@@ -18,6 +22,8 @@ class UnitController extends GridController
             'updated_at' => true,
         ];
         $this->items = Unit::all();
+        $this->addButton(new ExportExcel('product-unit.exportToExcel'));
+        $this->addButton(new NewModel('product-unit.create'));
     }
 
     public function exportToExcel()
@@ -32,10 +38,11 @@ class UnitController extends GridController
      */
     public function index()
     {
-        $columns = $this->columns;
-        $items = $this->items;
-
-        return view('list', compact('columns', 'items'));
+        return view('list', [
+            'columns' => $this->columns,
+            'items' => $this->items,
+            'buttons' => $this->buttons
+        ]);
     }
 
     /**

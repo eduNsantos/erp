@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     });
     
     Route::group(['prefix' => '/general-registration'], function () {
-        Route::get('/', 'RouteController@general_registration')->name('general_registration.index');
+        Route::get('/', function () { response('a'); })->name('general_registration.index');
     });    
 });
 

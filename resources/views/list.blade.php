@@ -32,25 +32,15 @@
                         @endforeach
                     </div>
                 </div>
-                <a 
-                    href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.exportToExcel') }}"
-                    download
-                    class="btn btn-success export-excel"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Exportar para excel"
-                >
-                    <i class="fas fa-file-excel"></i>
-                </a>
-                <a 
-                    href="{{ route(substr(Route::current()->getName(), 0, strpos(Route::current()->getName(), '.')).'.create') }}"
-                    class="btn btn-primary create-item"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Novo produto"
-                >
-                    <i class="fas fa-plus"></i>
-                </a>
+                @foreach ($buttons as $button)
+                    <a 
+                        href="{{ $button->getRoute() }}"
+                        {{ $button->getHasTooltip() ? 'data-toggle=tooltip' : "" }}
+                        title="{{  $button->getHasTooltip() ? $button->getTooltip() : ""  }}"
+                        class="{{ $button->getClasses() }} {{ $button->getUsesModal() ? 'uses-modal' : '' }}">
+                            <i class="{{ $button->getIcon() }}"></i>
+                        </a>
+                @endforeach
             </div>
         </div>
         <div id="filter" class="mb-3 d-none" aria-expanded="false">
@@ -128,18 +118,7 @@
                                                 </td>
                                             @else
                                                 <td class="column-{{ $column }}" column="{{ $column }}">
-                                                    
                                                     {{ $cell }}  
-                                                    {{-- @if (!empty($cell))
-                                                        {{ $cell }}  
-                                                    @else
-                                                        {!! '<span 
-                                                                class="text-danger"
-                                                                data-toggle="tooltip"
-                                                                title="Não informado no cadastro">
-                                                                Não definido
-                                                            </span>' !!}
-                                                    @endif --}}
                                                 </td>
                                             @endif
                                         @endforeach

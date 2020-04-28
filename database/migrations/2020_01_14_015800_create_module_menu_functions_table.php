@@ -29,7 +29,13 @@ class CreateModuleMenuFunctionsTable extends Migration
         ModuleMenuFunction::insert([
             [
                 'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
-                'name' => 'Produtos',
+                'name' => 'Cadastro de produto',
+                'icon' => 'fas fa-plus',
+                'route' => 'product.create'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::STOCK_PRODUCT,
+                'name' => 'Listagem de produto',
                 'icon' => 'fas fa-boxes',
                 'route' => 'product.index'
             ],

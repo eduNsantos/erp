@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Grid;
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Grid\Components\Button;
 use App\SessionDate;
 use Illuminate\Support\Facades\Lang;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -9,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class GridController extends Controller
 {
+    protected $buttons = [];
     /**
      * Export data to xlsx file
      * 
@@ -67,5 +70,32 @@ class GridController extends Controller
         }
 
         return $spreadsheet;
+    }
+
+    /**
+     * Get the value of buttons
+     */ 
+    public function getButtons()
+    {
+        return $this->buttons;
+    }
+
+    /**
+     * Set the value of buttons
+     *
+     * @return  self
+     */ 
+    public function setButtons($buttons)
+    {
+        $this->buttons = $buttons;
+
+        return $this;
+    }
+
+    public function addButton(Button $button)
+    {
+        array_push($this->buttons, $button);
+
+        return $this->buttons;
     }
 }

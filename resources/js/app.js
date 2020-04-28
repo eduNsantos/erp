@@ -121,7 +121,7 @@ $(document).on('click', '.export-excel', function (e) {
 /**
  * Faz a requisição do formulário de cadastro no back-end
  */
-$(document).on('click', '.create-item', function (e) {
+$(document).on('click', '.uses-modal', function (e) {
     const item = this
     const registerModal = $('#registerModal')
     

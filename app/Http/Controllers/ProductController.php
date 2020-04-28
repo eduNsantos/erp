@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Brand;
+use App\Http\Controllers\Grid\Components\ExportExcel;
+use App\Http\Controllers\Grid\Components\NewModel;
+use App\Http\Controllers\Grid\GridController;
 use App\Http\Requests\ProductRequest;
 use App\Product;
 use App\ProductBalance;
@@ -16,6 +19,15 @@ use Illuminate\Http\Request;
 class ProductController extends GridController
 {
     const TRANSLATION_PREFIX = "stock.product";
+
+    public function __construct()
+    {
+        $newModel = new NewModel('product.create', 'Adicionar novo produto');
+        $newModel->setUsesModal(false);
+
+        $this->addButton(new ExportExcel('product.exportToExcel'));
+        $this->addButton($newModel);
+    }
 
     /**
      * Method to export data to excel
@@ -59,7 +71,8 @@ class ProductController extends GridController
 
         return view('list', [
             'columns' => $this->columns,
-            'items' => $this->items
+            'items' => $this->items,
+            'buttons' => $this->buttons
         ]);
     }
 

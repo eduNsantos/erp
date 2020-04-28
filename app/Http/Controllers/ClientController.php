@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Http\Controllers\Grid\GridController;
 use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
 
