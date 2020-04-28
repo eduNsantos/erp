@@ -24,13 +24,22 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'unique:products,code|required',
-            'name' => 'unique:products,name|required',
+            'code' => 'unique:products,code|required|max:7',
+            'name' => 'unique:products,name|required|max:120',
+            'description' => 'unique:products,description|required|max:120',
             'unit_id' => 'required',
             'brand_id' => 'required',
             'product_category_id' => 'required',
             'product_group_id' => 'required',
-            'product_status_id' => 'required'
+            'product_status_id' => 'required',
+            'original_product_id' => 'required_if:is_generic,1'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'original_product_id.required_if' => 'O campo produto original é obrigatório quando produto genérico estiver marcado.'
         ];
     }
 }

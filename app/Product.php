@@ -15,7 +15,13 @@ class Product extends Model
         'brand_id',
         'product_category_id',
         'product_group_id',
-        'product_status_id'
+        'product_status_id',
+        'is_generic',
+        'is_feedstock',
+        'is_finished_product',
+        'is_package',
+        'expiration_days',
+        'original_product_id'
     ];
 
     public function unit()

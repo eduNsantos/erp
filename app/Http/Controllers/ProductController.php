@@ -83,13 +83,14 @@ class ProductController extends GridController
      */
     public function create()
     {
-        $units = Unit::all();
-        $brands = Brand::all();
-        $categories = ProductCategory::all();
-        $statuses = ProductStatus::all();
-        $groups = ProductGroup::all();
-        
-        return view('product.register', compact('units', 'brands', 'categories', 'statuses', 'groups'));
+        return view('product.register', [
+            'units' => Unit::all(),
+            'brands' => Brand::all(),
+            'categories' => ProductCategory::all(),
+            'statuses' => ProductStatus::all(),
+            'groups' => ProductGroup::all(),
+            'products' => Product::with('unit','brand','category','group')->get()
+        ]);
     }
 
     /**
@@ -102,7 +103,7 @@ class ProductController extends GridController
     {
         $product = Product::create($request->all());
         
-        ProductBalance::createDefaultProductQuantities($product->id);
+        ProductBalance::createDefaultProductBalance($product->id);
 
         return response()->json([
             'message' => 'Produto cadastrado com sucesso!',

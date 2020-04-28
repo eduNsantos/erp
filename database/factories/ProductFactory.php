@@ -16,6 +16,12 @@ $factory->define(Product::class, function (Faker $faker) {
         'brand_id' => 1,
         'product_category_id' => $faker->numberBetween(1,2),
         'product_group_id' => $faker->numberBetween(1,2),
-        'product_status_id' => $faker->numberBetween(1,5)
+        'product_status_id' => $faker->numberBetween(1,5),
+        'original_product_id' => $faker->numberBetween(1, 50),
+        'is_generic' => $faker->boolean,
+        'is_feedstock' => $faker->boolean,
+        'is_finished_product' => $faker->boolean,
+        'is_package' => $faker->boolean,
+        'expiration_days' => $faker->randomNumber()
     ];
 });

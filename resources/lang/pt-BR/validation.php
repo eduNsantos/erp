@@ -149,6 +149,8 @@ return [
     'attributes' => [
         'code' => 'código',
         'name' => 'nome',
+        'description' => 'descrição',
+        'original_product_id' => 'produto original',
         'brand_id' => 'marca',
         'unit_id' => 'unidade',
         'product_category_id' => 'categoria',

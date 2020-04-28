@@ -89,7 +89,7 @@ $(document).on('submit', '.ajax-form', function (e) {
     let secondsToEnableSubmitButton = 1;
 
     e.preventDefault()
-
+    console.log(form.serialize())
     axios.post($(form).attr('action'), form.serialize())
     .then(response => {
         swal.fire({
