@@ -45,6 +45,11 @@ class CreateModuleMenusTable extends Migration
                 'module_id' => Module::SALES,
                 'name' => 'Pedidos'
             ],
+            [
+                'id' => ModuleMenu::PCP_SHORTCUTS,
+                'module_id' => Module::PCP,
+                'name' => 'Atalhos'
+            ],
         ]);
     }
 

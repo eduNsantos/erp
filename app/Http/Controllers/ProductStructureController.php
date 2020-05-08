@@ -16,9 +16,9 @@ use App\ProductStatus;
 use App\Unit;
 use Illuminate\Http\Request;
 
-class ProductController extends GridController
+class ProductStructureController extends GridController
 {
-    const TRANSLATION_PREFIX = "stock.product";
+    const TRANSLATION_PREFIX = "stock.product-structure";
 
     public function __construct()
     {
@@ -50,10 +50,11 @@ class ProductController extends GridController
             ->get()
         ;
 
-        $newModel = new NewModel('product.create', 'Adicionar novo produto');
+        $newModel = new ExportExcel('product-structure.exportToExcel');
+        $newModel = new NewModel('product-structure.create', 'Adicionar nova estrutura');
         $newModel->setUsesModal(false);
 
-        $this->addButton(new ExportExcel('product.exportToExcel'));
+        $this->addButton(new ExportExcel('product-structure.exportToExcel'));
         $this->addButton($newModel);
 
         parent::__construct();
@@ -84,13 +85,23 @@ class ProductController extends GridController
      */
     public function create()
     {
-        return view('product.register', [
-            'units' => Unit::all(),
-            'brands' => Brand::all(),
-            'categories' => ProductCategory::all(),
-            'statuses' => ProductStatus::all(),
-            'groups' => ProductGroup::all(),
-            'products' => Product::with('unit','brand','category','group')->get()
+        $finishedProducts = Product::with('unit')
+            ->where('is_finished_product', true)
+            ->get()
+        ;
+        $feedstockProducts = Product::with('unit')
+            ->where('is_feedstock', true)
+            ->get()
+        ;
+        $packageProducts = Product::with('unit')
+            ->where('is_package', true)
+            ->get()
+        ;
+
+        return view('product.structure.register', [
+            'finishedProducts' => $finishedProducts,
+            'feedstockProducts' => $feedstockProducts,
+            'packageProducts' => $packageProducts,
         ]);
     }
 

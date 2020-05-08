@@ -69,5 +69,10 @@ return [
         'fantasy_name' => 'Nome fantasia',
         'main_contact' => 'Contato principal'
     ],
-    'general-registration' => 'Cadastramento geral'
+    'general-registration' => [
+        'module_name' => 'Cadastramento geral',
+    ],
+    'pcp' => [
+        'module_name' => 'Planejamento e Controle de Produção'
+    ]
 ];

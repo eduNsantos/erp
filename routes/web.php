@@ -10,6 +10,7 @@
 |
 */
 
+use App\Http\Middleware\Modules\PCP;
 use App\Http\Middleware\Modules\Sales;
 use App\Http\Middleware\Modules\Stock;
 use App\Module;
@@ -56,7 +57,16 @@ Route::middleware('auth')->group(function () {
     
     Route::group(['prefix' => '/general-registration'], function () {
         Route::get('/', function () { response('a'); })->name('general_registration.index');
-    });    
+    });
+    
+    Route::group(['prefix' => '/pcp', 'middleware' => PCP::class], function () {
+        Route::get('/', function () { 
+            return view('menu');
+        })->name('pcp.index');
+        
+        Route::get('/product-structure/exportToExcel', 'ProductStructureController@exportToExcel');
+        Route::resource('/product-structure', 'ProductStructureController');
+    });
 });
 
 Auth::routes();

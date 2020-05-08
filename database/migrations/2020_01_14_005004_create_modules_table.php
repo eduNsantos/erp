@@ -41,6 +41,12 @@ class CreateModulesTable extends Migration
                 'icon' => 'fas fa-receipt',
                 'route' => 'general_registration.index'
             ],
+            [
+                'id' => Module::PCP,
+                'name' => 'pcp',
+                'icon' => 'fas fa-cogs',
+                'route' => 'pcp.index'
+            ],
         ]);
     }
 

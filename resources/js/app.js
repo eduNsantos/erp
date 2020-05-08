@@ -121,6 +121,10 @@ $(document).on('click', '.export-excel', function (e) {
     })();
 })
 
+
+$(document).on('click', '.nav-tabs .nav-link', function () {
+    $(this).toggleClass('active')
+});
 /**
  * Faz a requisição do formulário de cadastro no back-end
  */
@@ -271,7 +275,7 @@ $(document).on('click', '.remove-item', function () {
     }
 });
 
-$(document).on('keyup', '#order-items .product-search', function (e) {
+$(document).on('keyup change', '#order-items .product-search', function (e) {
     let products = JSON.parse($('#order-table').attr('products'))
     let searchProduct = products.find(product => {
         let value = $(this).val().toLowerCase()

@@ -87,6 +87,12 @@ class CreateModuleMenuFunctionsTable extends Migration
                 'icon' => 'fas fa-clipboard',
                 'route' => 'order.index'
             ],
+            [
+                'module_menu_id' => ModuleMenu::PCP_SHORTCUTS,
+                'name' => 'Receita/estrutura de produto',
+                'icon' => 'fas fa-hammer',
+                'route' => 'product-structure.index'
+            ],
         ]);
     }
 

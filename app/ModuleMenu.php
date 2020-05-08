@@ -10,6 +10,7 @@ class ModuleMenu extends Model
     const STOCK_CONSULT = 2;
     const SALES_CLIENT = 3;
     const SALES_ORDER = 4;
+    const PCP_SHORTCUTS = 5;
 
     protected $fillable = [
         'module_id',

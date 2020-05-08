@@ -25,7 +25,7 @@
             <div class="table-responsive mt-2">
                 <table 
                     id="order-table"
-                    class="table table- table-bordered table-striped"
+                    class="table table-bordered table-striped"
                     products="{{ json_encode($products) }}">
                     <thead>
                         <tr>
