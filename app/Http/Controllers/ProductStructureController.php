@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
 use App\Http\Controllers\Grid\Components\ExportExcel;
 use App\Http\Controllers\Grid\Components\NewModel;
 use App\Http\Controllers\Grid\GridController;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\StructureRequest;
 use App\Product;
-use App\ProductBalance;
-use App\ProductCategory;
-use App\ProductGroup;
-use App\ProductMovement;
-use App\ProductStatus;
-use App\Unit;
+use App\Structure;
+use App\StructureFeedstock;
 use Illuminate\Http\Request;
 
 class ProductStructureController extends GridController
@@ -111,14 +106,44 @@ class ProductStructureController extends GridController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(StructureRequest $request)
     {
-        $product = Product::create($request->all());
-        
-        ProductBalance::createDefaultProductBalance($product->id);
+        if (isset($request->is_main)) {
+            $structure = Structure::where('is_main', true)->first();
+            if ($structure) {
+                $structure->is_main = false;
+                $structure->save();
+            }
+        }
+
+        $structure = Structure::create([
+            'product_id' => $request->product_id,
+            'name' => $request->name,
+            'is_main' => isset($request->is_main) || !Structure::where('is_main', true)->count() ? true : false
+        ]);
+
+        for ($i = 0; $i < count($request->feedstock_product_id); $i++) {
+            StructureFeedstock::create([
+                'feedstock_type_id' => StructureFeedstock::FEEDSTOCK,
+                'structure_id' => $structure->id,
+                'product_id' => $request->feedstock_product_id[$i],
+                'quantity' => $request->feedstock_quantity[$i]
+            ]);
+        }
+
+        if ($request->no_package) {
+            for ($i = 0; $i < count($request->package_product_id); $i++) {
+                StructureFeedstock::create([
+                    'feedstock_type_id' => StructureFeedstock::PACKAGE,
+                    'structure_id' => $structure->id,
+                    'product_id' => $request->package_product_id[$i],
+                    'quantity' => $request->package_quantity[$i]
+                ]);
+            }
+        }
 
         return response()->json([
-            'message' => 'Produto cadastrado com sucesso!',
+            'message' => 'Estrutura nº'. $structure->id .' com sucesso!',
             'type' => 'success'
         ]);
     }

@@ -15,10 +15,14 @@ class CreateStructureFeedstocksTable extends Migration
     {
         Schema::create('structure_feedstocks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('feedstock_type_id');
             $table->unsignedBigInteger('structure_id');
             $table->unsignedBigInteger('product_id');
             $table->decimal('quantity', 15, 6);
             $table->timestamps();
+
+            $table->foreign('feedstock_type_id')->references('id')->on('feedstock_types');
+            $table->foreign('structure_id')->references('id')->on('structures');
         });
     }
 

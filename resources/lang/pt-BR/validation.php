@@ -160,7 +160,9 @@ return [
         'corporate_name' => 'razão social/nome',
         'fantasy_name' => 'nome fantasia/apelido',
         'client_id' => 'cliente',
-        'initials' => 'sigla'
+        'initials' => 'sigla',
+        'package' => 'embalagem',
+        'feedstock' => 'matéria-prima'
     ],
 
 ];

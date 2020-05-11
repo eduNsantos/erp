@@ -11,25 +11,28 @@ const items = []
 let tableColumns = []
 
 $(document).ready(function () {
-    let columns = $('th[column]').toArray()
-    let values = $('td[column]').toArray()
-    let count = 0;
 
-    // Seleciona as colunas disponíveis
-    tableColumns = columns.map(column => $(column).attr('column'))
-    // Seleciona os valores e tira os espaços em branco
-    values = values.map(value => $(value).text().trim())
+    if ($('table').length > 0) {
+        let columns = $('th[column]').toArray()
+        let values = $('td[column]').toArray()
+        let count = 0;
 
-    // Seleciona cada item e cria um objeto
-    while (count < values.length) {
-        let item = {}
-        tableColumns.forEach(column => {
-            item[column] = values[count]
-            count++
-        })
-        items.push(item)
+        // Seleciona as colunas disponíveis
+        tableColumns = columns.map(column => $(column).attr('column'))
+        // Seleciona os valores e tira os espaços em branco
+        values = values.map(value => $(value).text().trim())
+
+        // Seleciona cada item e cria um objeto
+        while (count < values.length) {
+            let item = {}
+            tableColumns.forEach(column => {
+                item[column] = values[count]
+                count++
+            })
+            items.push(item)
+        }
     }
-
+    
     $('[data-toggle]').tooltip()
 })
 
@@ -89,7 +92,7 @@ $(document).on('submit', '.ajax-form', function (e) {
     let secondsToEnableSubmitButton = 1;
 
     e.preventDefault()
-    console.log(form.serialize())
+    
     axios.post($(form).attr('action'), form.serialize())
     .then(response => {
         swal.fire({
