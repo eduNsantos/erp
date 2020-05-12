@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Client;
 use App\Http\Controllers\Grid\GridController;
 use App\Http\Requests\OrderRequest;
+use App\Movement\Reservation;
 use App\Order;
 use App\OrderProduct;
 use App\OrderStatus;
@@ -90,11 +91,11 @@ class OrderController extends GridController
                 'quantity' => $request->quantity[$i]
             ]);
             
-            $movement = new MovementController();
-            $movement->setProductId($request->product_id[$i]);
-            $movement->setQuantity($request->quantity[$i]);
-            $movement->setMovementReason("Pedido de venda " . $order->id . " item " . ($i + 1));
-            $movement->reservationEntry();
+            $reservation = new Reservation();
+            $reservation->setProductId($request->product_id[$i]);
+            $reservation->setQuantity($request->quantity[$i]);
+            $reservation->setMovementReason("Pedido de venda " . $order->id . " item " . ($i + 1));
+            $reservation->entry();
         }
 
         return response()->json([
@@ -158,11 +159,11 @@ class OrderController extends GridController
         
         $i = 1;
         foreach ($order->order_products as $product) {
-            $movement = new MovementController();
-            $movement->setProductId($product->product_id);
-            $movement->setQuantity($product->quantity);
-            $movement->setMovementReason('Cancelamento do pedido nº ' . $order->id . ' item ' . $i);
-            $movement->reservationWithdrawal();
+            $reservation = new Reservation();
+            $reservation->setProductId($product->product_id);
+            $reservation->setQuantity($product->quantity);
+            $reservation->setMovementReason('Cancelamento do pedido nº ' . $order->id . ' item ' . $i);
+            $reservation->withdrawal();
             $i++;
         }
         return response()->json([
@@ -194,11 +195,11 @@ class OrderController extends GridController
 
         $i = 1;
         foreach ($order->order_products as $product) {
-            $movement = new MovementController();
-            $movement->setProductId($product->id);
-            $movement->setQuantity($product->quantity);
-            $movement->setMovementReason('Ativação do pedido nº ' . $order->id . ' item ' . $i);
-            $movement->reservationEntry();
+            $reservation = new Reservation();
+            $reservation->setProductId($product->id);
+            $reservation->setQuantity($product->quantity);
+            $reservation->setMovementReason('Ativação do pedido nº ' . $order->id . ' item ' . $i);
+            $reservation->entry();
             $i++;
         }
         
