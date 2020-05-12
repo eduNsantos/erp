@@ -89,6 +89,12 @@ class CreateModuleMenuFunctionsTable extends Migration
             ],
             [
                 'module_menu_id' => ModuleMenu::PCP_SHORTCUTS,
+                'name' => 'Ordem de Produção (O.P.)',
+                'icon' => 'fas fa-cog',
+                'route' => 'production-order.index'
+            ],
+            [
+                'module_menu_id' => ModuleMenu::PCP_SHORTCUTS,
                 'name' => 'Receita/estrutura de produto',
                 'icon' => 'fas fa-hammer',
                 'route' => 'product-structure.index'

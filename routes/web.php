@@ -10,6 +10,7 @@
 |
 */
 
+use App\Http\Controllers\ProductionOrderController;
 use App\Http\Middleware\Modules\PCP;
 use App\Http\Middleware\Modules\Sales;
 use App\Http\Middleware\Modules\Stock;
@@ -66,6 +67,9 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/product-structure/exportToExcel', 'ProductStructureController@exportToExcel');
         Route::resource('/product-structure', 'ProductStructureController');
+
+        Route::get('/production-order/exportToExcel', 'ProductionOrderController@exportToExcel');
+        Route::resource('/production-order', 'ProductionOrderController');
     });
 });
 
