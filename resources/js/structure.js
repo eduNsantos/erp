@@ -106,7 +106,6 @@ $(document).on('click', '#no_package', function () {
 
     if ($(this).is(':checked')) {
         $('#packages tbody tr').not(':first').remove()
-        $('#packages tbody input, select, textarea').val("")
     }
 })
 

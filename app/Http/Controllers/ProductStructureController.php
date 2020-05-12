@@ -116,10 +116,15 @@ class ProductStructureController extends GridController
             }
         }
 
+        $productHasAMainStructure = Structure::where('is_main', true)
+            ->where('product_id', $request->product_id)
+            ->count()
+        ;
+
         $structure = Structure::create([
             'product_id' => $request->product_id,
             'name' => $request->name,
-            'is_main' => isset($request->is_main) || !Structure::where('is_main', true)->count() ? true : false
+            'is_main' => isset($request->is_main) || !$productHasAMainStructure ? true : false
         ]);
 
         for ($i = 0; $i < count($request->feedstock_product_id); $i++) {

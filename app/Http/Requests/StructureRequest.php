@@ -38,7 +38,7 @@ class StructureRequest extends FormRequest
 
         $rules = array_merge($rules, [
             'product_id' => 'required',
-            'name' => 'required',
+            'name' => 'required|unique:structures,name',
         ]);
 
         return $rules;
